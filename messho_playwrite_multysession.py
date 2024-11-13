@@ -253,7 +253,9 @@ def scrapping(page, pincode, pos, pid):
 def create_session(browser, cookie_file):
     fingerprints = FingerprintGenerator()
     fingerprint = fingerprints.generate()
-    context = NewContext(browser, fingerprint=fingerprint)
+    user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+
+    context = NewContext(browser, fingerprint=fingerprint, user_agent=user_agent)
 
     # Load cookies for the session
     with open(cookie_file, 'r') as f:
@@ -270,7 +272,9 @@ def scraper(pincode, start_id, end_id):
 
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=False)
-
+        # context = browser.new_context(
+        #     user_agent=user_agent
+        # )
         # Create multiple sessions using different cookies
         context1, page1 = create_session(browser, '6204387213_20241112.json')
         context2, page2 = create_session(browser, '6352290451_20241112.json')
@@ -292,7 +296,7 @@ def scraper(pincode, start_id, end_id):
                 scrapping(page3, pincode, pos, pid)
             if co_p == 4:
                 scrapping(page4, pincode, pos, pid)
-                co_p = 1
+                co_p = 0
             co_p += 1
 
 
