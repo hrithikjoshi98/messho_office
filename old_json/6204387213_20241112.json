@@ -1,0 +1,137 @@
+{
+  "cookies": [
+    {
+      "name": "isWG",
+      "value": "false",
+      "domain": "www.meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "CAT_NAV_V2_COOKIE",
+      "value": "0.8771579888941388",
+      "domain": "www.meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "ak_bmsc",
+      "value": "8DCC68B31891D1013F22908008F837B2~000000000000000000000000000000~YAAQlCMRAse3EwaTAQAAnKLgHxkCeXLBeJjvkdxj+XhxbZLbnMvjPysgWVzA8XFeYe+tPfwO/VUIW90Im+QGuIstf3JTVhTqMVlByT2sHA/TTzdiXJ+pLRChfAxGtnwKiPFzfXZY/VP0kGO7Bcm2gAo1+ybCn1x+c3p/QhB9zLptz9a0NEH5p9gNjc2ps0SMreEcKgRWDvY1EeGKwOvSEUjZQie9bugIFetViRw9kyTvSYjKGjuQS/jQYtd/W233wxhaGUeZGgB+ZyUfCgymtxucHiKS49ArCxSrDGl0qoNJfnaSwv4Bawp6XbSjyFU2lMJTQziXNtP1vFfRoHqVPeK01rW2FgHPwnxLMu2CftmAGupxmkhCawclzWvvCDbiRsOXFdwCBFKfe5BRl4oSiDgkjfgEyRhG/dQh37DfNIkGpHTFM+Tn/MomyFufY4oAnfAsP8ujiG/ka/zhxw==",
+      "domain": ".meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__logged_in_user_id_",
+      "value": "71405932",
+      "domain": "www.meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_is_logged_in_",
+      "value": "1",
+      "domain": "www.meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__connect.sid__",
+      "value": "s%3A8l6nNZy9xMLPcuV1ptM9QWLPfW-FnPux.xr96Pisoz3jsn1bAzrFDzOGDXrlcgbPgmLj5g08JaIY",
+      "domain": "www.meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_abck",
+      "value": "73FBD148FFA46D38A3329E9C8D4B62B8~0~YAAQlCMRApO4EwaTAQAAbePgHwy+2jcMkp7Z+J/m+TlHmhoYkEuXpY92Cua+5C6OAyiBKORV4EYAFHCXIHTVY2xNhVHm1wZgrDjZIHOH8k2czliWh8QL5d/pOLToAiF+IIkYlHPpLgCresa9YYPaZknWU0plVvHMP2Retp4ZmZQCwQTzdsrNw+uz/UbSSlWLUllwUhoc7ZW8N+fOpYRP7c6NTI3G+G8zReEijJcj1tE5XF71hXiSfk4MzllsCoYfs3vfCXrLh1CEqE+8wq8plra7kX2vHLILjNFkF3Do+OwQHNoE9HLg3gBNMQKG1Xb7kmbsm87wvSrJED+EktjHsJK6LPv//ZfyO9gxI+ONoFM+xtNop7+0nhk4XI/8ld1ioyshkIMGeKye/uKSyxqXr6dO2vVjVKFv1BRNnlS6eViJIXvg4nx7dY58dq+Cnj4A9/RB+6Sd9JHx2jteYMUP8Tpm32m0VnjEN6XcKC60YtXZTFqrNSEVhuMJ0KkZmweapxSpiwuk94zcM0VL05uXV5Etp6aqxhsioL+IeKi5mGmYNmz0pH44DEFcp+IFYSxou4MBhbukmtGxOt3eqSXgnb15YN/E/SS9h1E+7pcMoxTFyOS77ezzm1xc3US98fovvpKy+XDoHjJaBQM4SoENkQxGMRh72ceBkgk+PhA=~-1~-1~-1",
+      "domain": ".meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "bm_sz",
+      "value": "A1E477272B7072B95801609F233DCDA3~YAAQlCMRApW4EwaTAQAAbePgHxk5wtvMJA36m2beUpLOxaE8RjbO7Vk4N5wzRVT/ysYQ2aZTHGOiUAxFzU/x9Rh9PjhrD6iMrefSYRB+L9Iu1bGdkDbkLemMzlXA82qOOrcku343R2c1E2xNUVeYIaQpO+hEGR+8oPboOqHz61SxWfwRCqAwUy0tN/0nmGFVZtyb1ts3EP/LcDmVmYl2tfZyScsZu46VJAGKA2zag7t1lelezk3HRHneWzix23KwU9zq4LUFz/+sxNPgPgoLKQAb/x3fQU5UfD00EG4BEOO5cBqgyyr7YAjtfwjWRS0j3OEJJklZRqmWsxjPFnoJ1NDTg/1JnftWGT/qIMEINl54OKlhpon9huooU0fiv1u/F0VqVsMEgHh2MtqnZZJ4/DvcdqU6GL+f6FrNrXMY3w==~3225409~4601670",
+      "domain": ".meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "location-details",
+      "value": "%7B%22city%22%3A%22Bengaluru%22%2C%22lat%22%3A%2213.2257%22%2C%22long%22%3A%2277.575%22%2C%22pincode%22%3A%22560001%22%7D",
+      "domain": "www.meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "mp_60483c180bee99d71ee5c084d7bb9d20_mixpanel",
+      "value": "%7B%22distinct_id%22%3A%20%221931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564%22%2C%22%24device_id%22%3A%20%221931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564%22%2C%22%24initial_referrer%22%3A%20%22%24direct%22%2C%22%24initial_referring_domain%22%3A%20%22%24direct%22%2C%22%24user_id%22%3A%2071405932%2C%22Is%20Anonymous%22%3A%20%22False%22%2C%22Session%20ID%22%3A%20%224843961d-d798-4f7a-920e-ed90593c%22%2C%22V2%20Cat-Nav%20Exp%20Enabled%22%3A%20false%2C%22last%20event%20time%22%3A%201731406653797%2C%22__alias%22%3A%2071405932%7D",
+      "domain": ".meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "bm_sv",
+      "value": "E1A59FF40C8BA52957750A716E8FED73~YAAQlCMRAqa4EwaTAQAASengHxl6kACNhQ8hir9vWMZ7ovyZQLpvEqINEwOlRvf5TL2yD/AxFYlHuek8uqQjEKoXPXHMm/ylUhvPOCoN1TXINHgBxR2Q5jDUTjkbnro8EhS/3pPbHMvo5A61IYteNwPAQMW1lNphFYcNASHNqdrb31irBbeP1Qv/V6SPHnlJ4FqZq6r+KOHYgQsaUQn9HyFnOR7qn90+QEVWUQ6bnOLN7VUYFYcEi8L3Fm765BrL~1",
+      "domain": ".meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://www.meesho.com",
+      "localStorage": [
+        {
+          "name": "ak_a",
+          "value": "73FBD148FFA46D38A3329E9C8D4B62B8"
+        },
+        {
+          "name": "ak_ax",
+          "value": "-1"
+        },
+        {
+          "name": "__mpq_60483c180bee99d71ee5c084d7bb9d20_pp",
+          "value": "[{\"id\":\"0r4xo7dqlh0dw5nk\",\"flushAfter\":1731406662757,\"payload\":{\"$set\":{\"$os\":\"Mac OS X\",\"$browser\":\"Safari\",\"$browser_version\":17.3,\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"Unique UserID\":71405932,\"User ID\":71405932,\"Distinct ID - MIP\":71405932,\"Category Navigation AB\":\"default\",\"Phone\":\"6204387213\"},\"$token\":\"60483c180bee99d71ee5c084d7bb9d20\",\"$distinct_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$device_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$user_id\":71405932}},{\"id\":\"jpv7xk61bjwdijwn\",\"flushAfter\":1731406662757,\"payload\":{\"$set\":{\"$os\":\"Mac OS X\",\"$browser\":\"Safari\",\"$browser_version\":17.3,\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"Unique UserID\":71405932,\"User ID\":71405932,\"Distinct ID - MIP\":71405932,\"Category Navigation AB\":\"default\",\"Phone\":\"6204387213\"},\"$token\":\"60483c180bee99d71ee5c084d7bb9d20\",\"$distinct_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$device_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$user_id\":71405932}}]"
+        },
+        {
+          "name": "__mpq_60483c180bee99d71ee5c084d7bb9d20_ev",
+          "value": "[{\"id\":\"erwufuh4ejnbf3fw\",\"flushAfter\":1731406662747,\"payload\":{\"event\":\"$create_alias\",\"properties\":{\"$os\":\"Mac OS X\",\"$browser\":\"Safari\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":17.3,\"$screen_height\":900,\"$screen_width\":1440,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"7557k6q7zvd2aui2\",\"time\":1731406652.747,\"distinct_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$device_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"Is Anonymous\":\"False\",\"Session ID\":\"4843961d-d798-4f7a-920e-ed90593c\",\"V2 Cat-Nav Exp Enabled\":false,\"last event time\":1731406650751,\"alias\":71405932,\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"bnuyx6lgvlbvwa5i\",\"flushAfter\":1731406662752,\"payload\":{\"event\":\"$identify\",\"properties\":{\"$os\":\"Mac OS X\",\"$browser\":\"Safari\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":17.3,\"$screen_height\":900,\"$screen_width\":1440,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"ybukt07e9bsf2md3\",\"time\":1731406652.752,\"distinct_id\":71405932,\"$device_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"Is Anonymous\":\"False\",\"Session ID\":\"4843961d-d798-4f7a-920e-ed90593c\",\"V2 Cat-Nav Exp Enabled\":false,\"last event time\":1731406650751,\"$user_id\":71405932,\"$anon_distinct_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"9eu3zsvyz8xk4imc\",\"flushAfter\":1731406662773,\"payload\":{\"event\":\"POW Auth OTP Verification Successful\",\"properties\":{\"$os\":\"Mac OS X\",\"$browser\":\"Safari\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":17.3,\"$screen_height\":900,\"$screen_width\":1440,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"12zvxntpsreqgqex\",\"time\":1731406652.772,\"distinct_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$device_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"Is Anonymous\":\"False\",\"Session ID\":\"4843961d-d798-4f7a-920e-ed90593c\",\"V2 Cat-Nav Exp Enabled\":false,\"last event time\":1731406652771,\"$user_id\":71405932,\"auth_type\":\"normal_auth\",\"Distinct Id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"2qck8fop3z387hai\",\"flushAfter\":1731406662779,\"payload\":{\"event\":\"POW Auth Successful\",\"properties\":{\"$os\":\"Mac OS X\",\"$browser\":\"Safari\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":17.3,\"$screen_height\":900,\"$screen_width\":1440,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"hklekirq6saskjgh\",\"time\":1731406652.779,\"distinct_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$device_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"Is Anonymous\":\"False\",\"Session ID\":\"4843961d-d798-4f7a-920e-ed90593c\",\"V2 Cat-Nav Exp Enabled\":false,\"last event time\":1731406652778,\"$user_id\":71405932,\"Action Event Name\":\"\",\"Meesho User ID \":71405932,\"auth_type\":\"normal_auth\",\"auth_method\":\"otp\",\"Distinct Id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"tduclu11egg0qw9y\",\"flushAfter\":1731406662782,\"payload\":{\"event\":\"POW App Signup\",\"properties\":{\"$os\":\"Mac OS X\",\"$browser\":\"Safari\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":17.3,\"$screen_height\":900,\"$screen_width\":1440,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"82mx09nqam3pvgc4\",\"time\":1731406652.782,\"distinct_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$device_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"Is Anonymous\":\"False\",\"Session ID\":\"4843961d-d798-4f7a-920e-ed90593c\",\"V2 Cat-Nav Exp Enabled\":false,\"last event time\":1731406652781,\"$user_id\":71405932,\"auth_type\":\"normal_auth\",\"Distinct Id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"403mbk9z5r3d7oms\",\"flushAfter\":1731406662749,\"payload\":{\"event\":\"$identify\",\"properties\":{\"$os\":\"Mac OS X\",\"$browser\":\"Safari\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":17.3,\"$screen_height\":900,\"$screen_width\":1440,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"8cztd0fxafom9nux\",\"time\":1731406652.748,\"distinct_id\":71405932,\"$device_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"Is Anonymous\":\"False\",\"Session ID\":\"4843961d-d798-4f7a-920e-ed90593c\",\"V2 Cat-Nav Exp Enabled\":false,\"last event time\":1731406650751,\"$user_id\":71405932,\"$anon_distinct_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"qoxe0qioqfncobaf\",\"flushAfter\":1731406663794,\"payload\":{\"event\":\"POW_HP_Viewed\",\"properties\":{\"$os\":\"Mac OS X\",\"$browser\":\"Safari\",\"$current_url\":\"https://www.meesho.com/\",\"$browser_version\":17.3,\"$screen_height\":900,\"$screen_width\":1440,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"mwq8ovrd3emzto86\",\"time\":1731406653.794,\"distinct_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$device_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"Is Anonymous\":\"False\",\"Session ID\":\"4843961d-d798-4f7a-920e-ed90593c\",\"V2 Cat-Nav Exp Enabled\":false,\"last event time\":1731406653792,\"$user_id\":71405932,\"desktop\":true,\"mobile\":false,\"Source\":\"Other sources\",\"referrer\":\"/auth/verify\",\"Landing Page\":false,\"Page Type\":\"HP\",\"Distinct Id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"lv9uitumpwz8r3dz\",\"flushAfter\":1731406663795,\"payload\":{\"event\":\"POW_HP_Viewed\",\"properties\":{\"$os\":\"Mac OS X\",\"$browser\":\"Safari\",\"$current_url\":\"https://www.meesho.com/\",\"$browser_version\":17.3,\"$screen_height\":900,\"$screen_width\":1440,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"z8ix4nuiucwnzx0p\",\"time\":1731406653.795,\"distinct_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$device_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":71405932,\"Is Anonymous\":\"False\",\"Session ID\":\"4843961d-d798-4f7a-920e-ed90593c\",\"V2 Cat-Nav Exp Enabled\":false,\"last event time\":1731406653792,\"desktop\":true,\"mobile\":false,\"Source\":\"Other sources\",\"referrer\":\"/auth/verify\",\"Landing Page\":false,\"Page Type\":\"HP\",\"Distinct Id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"n7kbzsmty2bp6cxc\",\"flushAfter\":1731406663798,\"payload\":{\"event\":\"POW Pageview\",\"properties\":{\"$os\":\"Mac OS X\",\"$browser\":\"Safari\",\"$current_url\":\"https://www.meesho.com/\",\"$browser_version\":17.3,\"$screen_height\":900,\"$screen_width\":1440,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"t14m0ujmao0ud9xu\",\"time\":1731406653.798,\"distinct_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$device_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"Is Anonymous\":\"False\",\"Session ID\":\"4843961d-d798-4f7a-920e-ed90593c\",\"V2 Cat-Nav Exp Enabled\":false,\"last event time\":1731406653797,\"$user_id\":71405932,\"Landing Page\":false,\"Page Type\":\"HP\",\"from\":\"HP\",\"status\":false,\"Distinct Id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"pvwek91ysjbvdg98\",\"flushAfter\":1731406663800,\"payload\":{\"event\":\"POW Pageview\",\"properties\":{\"$os\":\"Mac OS X\",\"$browser\":\"Safari\",\"$current_url\":\"https://www.meesho.com/\",\"$browser_version\":17.3,\"$screen_height\":900,\"$screen_width\":1440,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"bjp25bsr1bin2p1s\",\"time\":1731406653.799,\"distinct_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$device_id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":71405932,\"Is Anonymous\":\"False\",\"Session ID\":\"4843961d-d798-4f7a-920e-ed90593c\",\"V2 Cat-Nav Exp Enabled\":false,\"last event time\":1731406653797,\"Landing Page\":false,\"Page Type\":\"HP\",\"from\":\"HP\",\"status\":false,\"Distinct Id\":\"1931fe0a367618-0a28a6025d4baa-4b193201-13c680-1931fe0a368564\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}}]"
+        }
+      ]
+    }
+  ]
+}

@@ -1,73 +1,42 @@
 import time
 from selenium import webdriver
-import undetected_chromedriver as uc
 from selenium.webdriver import Keys
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import json, os
+import json
 import pymysql
 import zipfile
-import pickle
-from selenium.webdriver.chrome.service import Service
-from fake_useragent import UserAgent
 import random
-import hashlib
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+import requests
 
 random_time_list = [1, 2, 3]
-def random_waite():
-    ran_tim = random.choice(random_time_list)
-    # time.sleep(ran_tim)
+
 
 def small_random_waite():
-    random_time_list = [0.2,0.3,0.4,0.5]
+    random_time_list = [0.2, 0.3, 0.4, 0.5]
     ran_tim = random.choice(random_time_list)
     time.sleep(ran_tim)
 
-ua = UserAgent()
 
-# ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
-# options = uc.ChromeOptions()
-# options.add_argument('--disable-popup-blocking')
-# options = webdriver.ChromeOptions()
-# options.add_argument(f"user-agent={ua.random}")
-# driver = webdriver.Chrome(options=options)
-
-options = webdriver.ChromeOptions()
-
-options.add_argument("--disable-blink-features=AutomationControlled")
-options.add_experimental_option("excludeSwitches", ["enable-automation"])
-options.add_experimental_option('useAutomationExtension', False)
-user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
-options.add_argument(f"user-agent={user_agent}")
-# options.add_argument(fr"user-data-dir=C:\Users\Admin\AppData\Local\Google\Chrome\User Data\Profile 1")
-# options.add_argument("--remote-debugging-port=9222")
-driver = webdriver.Chrome(options=options)
-
-# options.add_argument("--disable-blink-features=AutomationControlled")
-# options.add_experimental_option("excludeSwitches", ["enable-automation"])
-# options.add_experimental_option('useAutomationExtension', False)
-# user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
-# options.add_argument(f"user-agent={user_agent}")
-# options = uc.ChromeOptions()
-# driver = uc.Chrome(options=options)
-
-driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-
-# options = uc.ChromeOptions()
-# driver = uc.Chrome()
+connect = pymysql.connect(
+    host='localhost',
+    user='root',
+    password='actowiz',
+    database='meesho_page_save'
+)
+cursor = connect.cursor()
 
 local_connect = pymysql.connect(
     host='localhost',
     user='root',
     password='actowiz',
-    database='casio'
+    database='meesho_page_save'
 )
 local_cursor = local_connect.cursor()
 
-local_cursor.execute('''CREATE TABLE IF NOT EXISTS meesho_table(id int AUTO_INCREMENT PRIMARY KEY,
+local_cursor.execute('''CREATE TABLE IF NOT EXISTS pages(id int AUTO_INCREMENT PRIMARY KEY,
 url varchar(1000),
 pincode varchar(50),
 page_hash varchar(1000),
@@ -75,219 +44,130 @@ status varchar(100))''')
 local_connect.commit()
 
 main_url = 'https://www.meesho.com/?srsltid=AfmBOopbEEo_Uie8c9cnbQQQRlxyQuK0r9EjrTI2ac0aDz6RkOmwZX81&source=profile&entry=header&screen=HP'
-driver.get(main_url)
-
-# working for some request
-
-# cookie_list = {"cookies": [{"name": "isWG", "value": "False", "domain": "www.meesho.com", "path": "/", "expires": -1, "httpOnly": False, "secure": False, "sameSite": "Lax"}, {"name": "CAT_NAV_V2_COOKIE", "value": "0.3037921738444187", "domain": "www.meesho.com", "path": "/", "expires": -1, "httpOnly": False, "secure": False, "sameSite": "Lax"}, {"name": "ak_bmsc", "value": "900F9630494DF71DA0ACD2048719E82E~000000000000000000000000000000~YAAQFZx6XBfuQx2SAQAAaV8zHhlOwJhQZbXmPz48KR9GxQ1kuWQfMYVI0k1i9Om05WzcU8Py27qgjfBfhfOHuSFoAoHvR2sZ1oB7+wdvFo2qd3yQBp/mwhVqWPdcLv8rz+oNh9tV3xjEdty93JLfwKugdG7V4+P4slXfOfOwfFH7gOPgTUmQXpZMt0J+15JsEC2NmaG2BI3itG6MQhJyuCtak79YbF0BRu+6L0DzZuO1kxKkaA9xhcwweMQDh8oI0KDHtgx1kfocgKjH40SZbGDqcCHn3RqsUK9fJqY2W/GwJ2BZfxRZM0ESC3a49+LQHLqb+UzwkLDJCVWl/gkPAec8bYRT4AGfFqT4GdD2cw6mwOtLxV8TCYs2oJeaSYvEuc2kXM2joY5d/XFWrwqaj95+gA2+7AkZyqOWgjcewy0hjQQG1oHHhvtbqlffeLn2mNyz", "domain": ".meesho.com", "path": "/", "expires": 1727090734.772246, "httpOnly": False, "secure": False, "sameSite": "Lax"}, {"name": "__logged_in_user_id_", "value": "408142433", "domain": "www.meesho.com", "path": "/", "expires": -1, "httpOnly": False, "secure": False, "sameSite": "Lax"}, {"name": "_is_logged_in_", "value": "1", "domain": "www.meesho.com", "path": "/", "expires": -1, "httpOnly": False, "secure": True, "sameSite": "Lax"}, {"name": "__connect.sid__", "value": "s%3AM5kMtUw5wE6haRRkozPqrL8g1K2NtIni.2oAOBqBGbd957%2BAEupvrGElQA4i4CSzDIofr2exnInE", "domain": "www.meesho.com", "path": "/", "expires": 1729675556.174898, "httpOnly": True, "secure": True, "sameSite": "Lax"}, {"name": "_abck", "value": "7AF30148B9918435880A4DAF0AC229A7~-1~YAAQFZx6XHjwQx2SAQAAg5szHgyY1FeebZXa+lic6x9HjDMO1tePlSW70tiHorPPl1PJDSRemTwsS0Eqcy+8rXkZdrsr85MjTy12k7YkM5kW9Ira/sOHmSq5RUMamfZUxDXg0LbS7vbYBL/QinJ17Pn+27FnLu7F3l4n3Z8krb0hybm1Rf1rgHuvBMHW4I6bsQ3HMeNdYETSj0vjTg0EkR7vkn/olSRsxQr3EfaTSTDsrvpOQX+vok0wvu8VaymNVTn6eHfXeyPFm56JP+fEPu28u/uZrX5US3cuyimJf1ZOsI94zrrp+3J69k5neYJG0B17jIhrQwAJR5KfxNsmhldbvgPZJaj4Ie90z0Hj35EpO0N2QZsr2KKaW24VirXKbS5f7OmyPPlu5eZcEfZ3jUXMvhA51WNLyC8BBu+61G7Hu6O9LmbrGR/eVIVyixDuFiJ7tVww0XcdhZxb5LVokjlxkC+XZ1ltqxy+1W6QZuoiXN4ZUxYOMEHlFflNuJfxpSdLSAbvtWHOmsDQ8BVtXp4VxnUoNtWywHuq8JtXs+8OB3IeBbnPM540/TdV9qE6u3R12OoD7PeP~-1~-1~-1", "domain": ".meesho.com", "path": "/", "expires": 1758619556.17513, "httpOnly": False, "secure": False, "sameSite": "Lax"}, {"name": "bm_sz", "value": "A63591E30C634E1EF327630E4B71A2B0~YAAQFZx6XHrwQx2SAQAAg5szHhk2ZtbLvdd154ge4tAVDNQHg2Ybc9CZDuDjwWpnqU28SqoXNu+ITXz7PeaoAhdhLFyFAR17Yy+s8CLToexaS4TMgZsT7Ous9zeyATJj6J5Y/H/uRBHKkbSSdUaL1UVuh50LWybDNzq9FlWsR5XpV/docy5/LWaoH8B8kts+VrKtop5VKQcm92J5smr83e4mEsmGBpSjkqOtdAYpTEULgSNmizVHxZA+dz+tm41mfapaUwWYKIB8UoK5FjB9NV0Whnx3czseDJcUeenJqoyzks38et9wNtASaKP4Dxr4TBZfjpICmtGPqGz/84Y6PQVcK+a7S6yKfG+7Ir71ej+jg4nJpftd5C+5EhcZYTHq3oMzPp4Mvh8cirPyaFhH2tkzqedZlRaHTvKb+ABuoIE8dcJMVNMlW27sjc4t~3422008~4339525", "domain": ".meesho.com", "path": "/", "expires": 1727097935.175558, "httpOnly": False, "secure": False, "sameSite": "Lax"}, {"name": "location-details", "value": "%7B%22city%22%3A%22Bengaluru%22%2C%22pincode%22%3A%22560001%22%2C%22lat%22%3A%2213.2257%22%2C%22long%22%3A%2277.575%22%7D", "domain": "www.meesho.com", "path": "/", "expires": 1729675556.191105, "httpOnly": False, "secure": False, "sameSite": "Lax"}, {"name": "mp_60483c180bee99d71ee5c084d7bb9d20_mixpanel", "value": "%7B%22distinct_id%22%3A%20%221921e336d7229f-0210b0bf9e5138-1b525637-1fa400-1921e336d73794%22%2C%22%24device_id%22%3A%20%221921e336d7229f-0210b0bf9e5138-1b525637-1fa400-1921e336d73794%22%2C%22%24initial_referrer%22%3A%20%22%24direct%22%2C%22%24initial_referring_domain%22%3A%20%22%24direct%22%2C%22%24user_id%22%3A%20408142433%2C%22Is%20Anonymous%22%3A%20%22False%22%2C%22Session%20ID%22%3A%20%228fe85c50-8af6-49af-b182-c22701ad%22%2C%22V2%20Cat-Nav%20Exp%20Enabled%22%3A%20False%2C%22last%20event%20time%22%3A%201727083557992%2C%22__alias%22%3A%20408142433%7D", "domain": ".meesho.com", "path": "/", "expires": 1758619557, "httpOnly": False, "secure": False, "sameSite": "Lax"}, {"name": "bm_sv", "value": "A6940C06905C216E72E999F57665889A~YAAQFZx6XOvwQx2SAQAAl6UzHhnQe83BKPCxvOAFJHWqy4wtYbncfr5211/tBsgAzgofvcaIS1yGd+8cQmsAYM3rBuTwKnvkcQSpPIHp1XDPXPkoeeuakuVRntIeGdQ3eMIDtTn37HPrD+zyecDM4SBlqVr8MivrEBDtFw69eRNmmkbJyYqKnGQVBYkV3VttoYaiHs+MS9IRx5TaINc8UBoEYT6YqWjR6FBbsUih9Upg7pUeNaSyo+f4NuB7l+cl~1", "domain": ".meesho.com", "path": "/", "expires": 1727090739.741724, "httpOnly": False, "secure": False, "sameSite": "Lax"}], "origins": [{"origin": "https://www.meesho.com", "localStorage": [{"name": "ak_a", "value": "7AF30148B9918435880A4DAF0AC229A7"}, {"name": "ak_ax", "value": "-1"}, {"name": "__mpq_60483c180bee99d71ee5c084d7bb9d20_pp", "value": "[{\"id\":\"f28snkshuu30n5za\",\"flushAfter\":1727083566223,\"payload\":{\"$set\":{\"$os\":\"Mac OS X\",\"$browser\":\"Chrome\",\"$browser_version\":124,\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"Unique UserID\":408142433,\"User ID\":408142433,\"Distinct ID - MIP\":408142433,\"Category Navigation AB\":\"default\",\"Phone\":\"6354786744\"},\"$token\":\"60483c180bee99d71ee5c084d7bb9d20\",\"$distinct_id\":\"1921e336d7229f-0210b0bf9e5138-1b525637-1fa400-1921e336d73794\",\"$device_id\":\"1921e336d7229f-0210b0bf9e5138-1b525637-1fa400-1921e336d73794\",\"$user_id\":408142433}},{\"id\":\"qetyq3iotoeg9fnw\",\"flushAfter\":1727083566224,\"payload\":{\"$set\":{\"$os\":\"Mac OS X\",\"$browser\":\"Chrome\",\"$browser_version\":124,\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"Unique UserID\":408142433,\"User ID\":408142433,\"Distinct ID - MIP\":408142433,\"Category Navigation AB\":\"default\",\"Phone\":\"6354786744\"},\"$token\":\"60483c180bee99d71ee5c084d7bb9d20\",\"$distinct_id\":\"1921e336d7229f-0210b0bf9e5138-1b525637-1fa400-1921e336d73794\",\"$device_id\":\"1921e336d7229f-0210b0bf9e5138-1b525637-1fa400-1921e336d73794\",\"$user_id\":408142433}}]"}, {"name": "__mpq_60483c180bee99d71ee5c084d7bb9d20_ev", "value": "[{\"id\":\"okajrrsotxf92o1h\",\"flushAfter\":1727083567967,\"payload\":{\"event\":\"POW_HP_Viewed\",\"properties\":{\"$os\":\"Mac OS X\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/\",\"$browser_version\":124,\"$screen_height\":1080,\"$screen_width\":1920,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"wszxljxhnkmjg1bd\",\"time\":1727083557.967,\"distinct_id\":\"1921e336d7229f-0210b0bf9e5138-1b525637-1fa400-1921e336d73794\",\"$device_id\":\"1921e336d7229f-0210b0bf9e5138-1b525637-1fa400-1921e336d73794\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"Is Anonymous\":\"False\",\"Session ID\":\"8fe85c50-8af6-49af-b182-c22701ad\",\"V2 Cat-Nav Exp Enabled\":False,\"last event time\":1727083557965,\"$user_id\":408142433,\"desktop\":True,\"mobile\":False,\"Source\":\"Other sources\",\"referrer\":\"/auth/verify\",\"Landing Page\":False,\"Page Type\":\"HP\",\"Distinct Id\":\"1921e336d7229f-0210b0bf9e5138-1b525637-1fa400-1921e336d73794\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"hpp4jsq3kmoelbks\",\"flushAfter\":1727083567994,\"payload\":{\"event\":\"POW Pageview\",\"properties\":{\"$os\":\"Mac OS X\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/\",\"$browser_version\":124,\"$screen_height\":1080,\"$screen_width\":1920,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"ehvixz4w2i46re0l\",\"time\":1727083557.994,\"distinct_id\":\"1921e336d7229f-0210b0bf9e5138-1b525637-1fa400-1921e336d73794\",\"$device_id\":\"1921e336d7229f-0210b0bf9e5138-1b525637-1fa400-1921e336d73794\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"Is Anonymous\":\"False\",\"Session ID\":\"8fe85c50-8af6-49af-b182-c22701ad\",\"V2 Cat-Nav Exp Enabled\":False,\"last event time\":1727083557992,\"$user_id\":408142433,\"Landing Page\":False,\"Page Type\":\"HP\",\"from\":\"HP\",\"status\":False,\"Distinct Id\":\"1921e336d7229f-0210b0bf9e5138-1b525637-1fa400-1921e336d73794\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}}]"}]}]}
-# cookie_list = {"cookies": [{"name": "isWG", "value": "False", "domain": "www.meesho.com", "path": "/", "expires": -1, "httpOnly": False, "secure": False, "sameSite": "Lax"}, {"name": "CAT_NAV_V2_COOKIE", "value": "0.7561001020345164", "domain": "www.meesho.com", "path": "/", "expires": -1, "httpOnly": False, "secure": False, "sameSite": "Lax"}, {"name": "ak_bmsc", "value": "1376095751ECA10CE245470464A7C15A~000000000000000000000000000000~YAAQFZx6XMT0Th2SAQAACXhsHhk9q2pKzKJRl8sS0bIKYxtuz5D9xWp1us/wOBfZHCsnAs3UEYTpU0AADqEIPllp6RjqaH21TQGA4OVSV5UeChQkCQK7FaAmRmLJNg5PkPCSWKbKqnxM0LkIiH9GRFYshdiioos8+KaDI2tI6kD0u5oyGa8sKxKQu6x1HB4GRh1qfANIdcSOw986BVykSr4Di+NaQR/OgCsZK23GSLmnPneDDpGVOYw0AddGwQ0sCsHX0ORTUpz1y1kCE7L9qt918BJP/OTsx2NgbNvSXWDDDSXaceB8cwlMgaInUv5Zi/YwVGi0iSERhqQCzv33qdlLYi6Dd+idcqIyXA+S9mXku5I9tEnv/1u9MKlp07Jlc7rkGUOTEP/cBXWnx025W28kuNXpy6ZCpXac+x7UOs4LtfEO2Fm74IQVP4F/aYrflwn1tG8=", "domain": ".meesho.com", "path": "/", "expires": 1727094477.575518, "httpOnly": False, "secure": False, "sameSite": "Lax"}, {"name": "__logged_in_user_id_", "value": "408142433", "domain": "www.meesho.com", "path": "/", "expires": -1, "httpOnly": False, "secure": False, "sameSite": "Lax"}, {"name": "_is_logged_in_", "value": "1", "domain": "www.meesho.com", "path": "/", "expires": -1, "httpOnly": False, "secure": True, "sameSite": "Lax"}, {"name": "__connect.sid__", "value": "s%3AewyFcS-R7LL4oBD5iU6_o1phexcvKePo.PYEUU6qljn%2FnM5Tjt7nDySTjQA4tjPFKCY0VdlsiDLs", "domain": "www.meesho.com", "path": "/", "expires": 1729679296.820185, "httpOnly": True, "secure": True, "sameSite": "Lax"}, {"name": "_abck", "value": "1B4B2D9AA5481B61B0A210E285010B84~-1~YAAQFZx6XEIATx2SAQAAq69sHgwJAsZZbSRoR76bnAQCDXC7oH9aDBpiM7E4sCHIvvkGR5lQA8eOH1LKqxSZCFc9/+JLQ86Ju9dmXvOuJjkLjoc5cp49Ow1ZaVjCfMyOGS5DivE3wxXRGruBp6GeltWZ25Cce0mGrXnJ9kp9S9IBoRS3spp1Px9ktjvXpr6F8te9W8wXgNEwgIrbwIbcddvWkJPneD8Ct4FC+7X4ybPtxSgw4Ni2mprYHA3o4Jx4OI7C6IpzfecOaOw5mAG6vDBKY6rznqEIplAlLtPlv+k5ULjTdbP7dOkTrLfFlLQMmM9MHMdO9EPuMwxOwv3tzeILKZXJKll6R+fNZwRtS3MDgZDCNuzAgjK9Th/JxY5QOfJLODA0HN3i9E4+t17leZRP88ooSokOgT0UDUh008QP5j4RmRocJbN6TMDDb/Y9ojlnEAHngEwNJabyravmpVK4QYK31F1vhAJRxhrJtxY1nPP+GJ47VkFhXp5e9MYkb8ytv8Xj0QnN7My4lvHmd6Ebcb4A+UEpZ+Zu0GkBCZ7nmLbY5HusloR3gKrFYnovhfkCVUzKOhWF~-1~-1~-1", "domain": ".meesho.com", "path": "/", "expires": 1758623296.82055, "httpOnly": False, "secure": False, "sameSite": "Lax"}, {"name": "bm_sz", "value": "235D4BAD3E7D3B525B411210D600B6D2~YAAQFZx6XEQATx2SAQAAq69sHhn1tw0NWWAKsv7b/qcp2R559aXiEOUuu4p9pw3F2C+GEd6+ZeXJQOBqo4SkF+KjuBumxkoBZekzQMC6G28iiP4lyOvRjL1Zw+FznKNIJ9PxiC7Rm7IFIgyWA6aeM87Lbrp28WzEt+pUBkH2Rf6kOcKa4HFL+K/pciEWQa73IH9fcPUR75xRYmGMonwS3nsXfLYbJVCDWJdQG2/BlwPSUMM/ZcM2ZbEltPS89b/QukP1MMBkjN5XOCq4O/xhAQq/xZ0bHjvS84caiUPAOz8wKtueykEKG2pCmUYRa3+FRe355VAKRjZwwcQZktsiCk/tXv9eJWxUR8Axa8FxAviTe5gHjgW7hZptwI6vDplFthjqskGqBejS4IVzEvBCtpdXncAg+X4=~3621172~4470337", "domain": ".meesho.com", "path": "/", "expires": 1727101677.821679, "httpOnly": False, "secure": False, "sameSite": "Lax"}, {"name": "location-details", "value": "%7B%22city%22%3A%22Bengaluru%22%2C%22pincode%22%3A%22560001%22%2C%22lat%22%3A%2213.2257%22%2C%22long%22%3A%2277.575%22%7D", "domain": "www.meesho.com", "path": "/", "expires": 1729679296.85052, "httpOnly": False, "secure": False, "sameSite": "Lax"}, {"name": "mp_60483c180bee99d71ee5c084d7bb9d20_mixpanel", "value": "%7B%22distinct_id%22%3A%20%221921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9%22%2C%22%24device_id%22%3A%20%221921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9%22%2C%22%24initial_referrer%22%3A%20%22%24direct%22%2C%22%24initial_referring_domain%22%3A%20%22%24direct%22%2C%22%24user_id%22%3A%20408142433%2C%22Is%20Anonymous%22%3A%20%22False%22%2C%22Session%20ID%22%3A%20%225bce2c5b-4187-4e86-be94-e2ef004c%22%2C%22V2%20Cat-Nav%20Exp%20Enabled%22%3A%20False%2C%22last%20event%20time%22%3A%201727087298566%2C%22__alias%22%3A%20408142433%7D", "domain": ".meesho.com", "path": "/", "expires": 1758623298, "httpOnly": False, "secure": False, "sameSite": "Lax"}, {"name": "bm_sv", "value": "F1B4B8030D8FB545A00D6E8AAF0AAA7A~YAAQFZx6XEcCTx2SAQAAOLlsHhni0MuYV++5lCzcrPIh8k775SQSPdNsGtA0Hm+QV5DO16lqSMvD4Efs87ogbLqQbxezJVhIkmpr10EwBHIpFSw5bXFqWwQeI23LJE9k3PaYkkiw1qDrwjMN7zFhlINZc5KZ0QndKbHu1ok6QuedWWK0wRBJL9ngQpSU6etX/fEfe1tYcKdW/EjPtWiSg8+jyrNthUZjgyX+AWMzP4XyjlR8s87QKfjfpLyHUXFw~1", "domain": ".meesho.com", "path": "/", "expires": 1727094482.256904, "httpOnly": False, "secure": False, "sameSite": "Lax"}], "origins": [{"origin": "https://www.meesho.com", "localStorage": [{"name": "ak_a", "value": "1B4B2D9AA5481B61B0A210E285010B84"}, {"name": "ak_ax", "value": "-1"}, {"name": "__mpq_60483c180bee99d71ee5c084d7bb9d20_pp", "value": "[{\"id\":\"k6jokxmfzjgwhunm\",\"flushAfter\":1727087306872,\"payload\":{\"$set\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$browser_version\":124,\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"Unique UserID\":408142433,\"User ID\":408142433,\"Distinct ID - MIP\":408142433,\"Category Navigation AB\":\"default\",\"Phone\":\"6354786744\"},\"$token\":\"60483c180bee99d71ee5c084d7bb9d20\",\"$distinct_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$device_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$user_id\":408142433}},{\"id\":\"5wpw5or596v9cxia\",\"flushAfter\":1727087306873,\"payload\":{\"$set\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$browser_version\":124,\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"Unique UserID\":408142433,\"User ID\":408142433,\"Distinct ID - MIP\":408142433,\"Category Navigation AB\":\"default\",\"Phone\":\"6354786744\"},\"$token\":\"60483c180bee99d71ee5c084d7bb9d20\",\"$distinct_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$device_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$user_id\":408142433}}]"}, {"name": "__mpq_60483c180bee99d71ee5c084d7bb9d20_ev", "value": "[{\"id\":\"s24ox4tjjalawqqf\",\"flushAfter\":1727087304708,\"payload\":{\"event\":\"POW Auth OTP Entered\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":124,\"$screen_height\":991,\"$screen_width\":1762,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"e4wrigoqa8jpocw0\",\"time\":1727087294.708,\"distinct_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$device_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"Is Anonymous\":\"True\",\"Session ID\":\"5bce2c5b-4187-4e86-be94-e2ef004c\",\"V2 Cat-Nav Exp Enabled\":False,\"last event time\":1727087294705,\"auth_type\":\"normal_auth\",\"Distinct Id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"km7b5lz83jr4jj30\",\"flushAfter\":1727087304827,\"payload\":{\"event\":\"POW Auth Verify OTP Clicked\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":124,\"$screen_height\":991,\"$screen_width\":1762,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"bpszanxqjcsin80a\",\"time\":1727087294.827,\"distinct_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$device_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"Is Anonymous\":\"True\",\"Session ID\":\"5bce2c5b-4187-4e86-be94-e2ef004c\",\"V2 Cat-Nav Exp Enabled\":False,\"last event time\":1727087294823,\"auth_type\":\"normal_auth\",\"Distinct Id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"fu210zkx9hg6gy98\",\"flushAfter\":1727087304835,\"payload\":{\"event\":\"POW Auth OTP Submitted\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":124,\"$screen_height\":991,\"$screen_width\":1762,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"d453teluvpdcrly1\",\"time\":1727087294.834,\"distinct_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$device_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"Is Anonymous\":\"True\",\"Session ID\":\"5bce2c5b-4187-4e86-be94-e2ef004c\",\"V2 Cat-Nav Exp Enabled\":False,\"last event time\":1727087294832,\"auth_type\":\"normal_auth\",\"Distinct Id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"1cknwhvx02fvcj7q\",\"flushAfter\":1727087306866,\"payload\":{\"event\":\"$create_alias\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":124,\"$screen_height\":991,\"$screen_width\":1762,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"ee540t9pxmo6ahd7\",\"time\":1727087296.866,\"distinct_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$device_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"Is Anonymous\":\"False\",\"Session ID\":\"5bce2c5b-4187-4e86-be94-e2ef004c\",\"V2 Cat-Nav Exp Enabled\":False,\"last event time\":1727087294832,\"alias\":408142433,\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"2i8wa8hzxj8s010x\",\"flushAfter\":1727087306871,\"payload\":{\"event\":\"$identify\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":124,\"$screen_height\":991,\"$screen_width\":1762,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"j96pakkxb5g3uwxm\",\"time\":1727087296.871,\"distinct_id\":408142433,\"$device_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":408142433,\"Is Anonymous\":\"False\",\"Session ID\":\"5bce2c5b-4187-4e86-be94-e2ef004c\",\"V2 Cat-Nav Exp Enabled\":False,\"last event time\":1727087294832,\"$anon_distinct_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"71dohx1qgfjpj6ou\",\"flushAfter\":1727087306889,\"payload\":{\"event\":\"POW Auth OTP Verification Successful\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":124,\"$screen_height\":991,\"$screen_width\":1762,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"o01ezo5l1134r3pv\",\"time\":1727087296.889,\"distinct_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$device_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":408142433,\"Is Anonymous\":\"False\",\"Session ID\":\"5bce2c5b-4187-4e86-be94-e2ef004c\",\"V2 Cat-Nav Exp Enabled\":False,\"last event time\":1727087296887,\"auth_type\":\"normal_auth\",\"Distinct Id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"96lkmrsmkr0e721g\",\"flushAfter\":1727087306895,\"payload\":{\"event\":\"POW Auth Successful\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":124,\"$screen_height\":991,\"$screen_width\":1762,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"5botenakjjfksxiw\",\"time\":1727087296.895,\"distinct_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$device_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":408142433,\"Is Anonymous\":\"False\",\"Session ID\":\"5bce2c5b-4187-4e86-be94-e2ef004c\",\"V2 Cat-Nav Exp Enabled\":False,\"last event time\":1727087296892,\"Action Event Name\":\"\",\"Meesho User ID \":408142433,\"auth_type\":\"normal_auth\",\"auth_method\":\"otp\",\"Distinct Id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"ibsb334u71zeibyn\",\"flushAfter\":1727087306899,\"payload\":{\"event\":\"POW App Signup\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":124,\"$screen_height\":991,\"$screen_width\":1762,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"8uv5xfjkykcd53n0\",\"time\":1727087296.898,\"distinct_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$device_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":408142433,\"Is Anonymous\":\"False\",\"Session ID\":\"5bce2c5b-4187-4e86-be94-e2ef004c\",\"V2 Cat-Nav Exp Enabled\":False,\"last event time\":1727087296896,\"auth_type\":\"normal_auth\",\"Distinct Id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"7vbs4y2oaev1m57s\",\"flushAfter\":1727087306868,\"payload\":{\"event\":\"$identify\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":124,\"$screen_height\":991,\"$screen_width\":1762,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"xioa697960dnz6s1\",\"time\":1727087296.868,\"distinct_id\":408142433,\"$device_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":408142433,\"Is Anonymous\":\"False\",\"Session ID\":\"5bce2c5b-4187-4e86-be94-e2ef004c\",\"V2 Cat-Nav Exp Enabled\":False,\"last event time\":1727087294832,\"$anon_distinct_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"ourb6vp8gtjc31xt\",\"flushAfter\":1727087308563,\"payload\":{\"event\":\"POW_HP_Viewed\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/\",\"$browser_version\":124,\"$screen_height\":991,\"$screen_width\":1762,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"t1hd12ug0adr6kvc\",\"time\":1727087298.563,\"distinct_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$device_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"Is Anonymous\":\"False\",\"Session ID\":\"5bce2c5b-4187-4e86-be94-e2ef004c\",\"V2 Cat-Nav Exp Enabled\":False,\"last event time\":1727087298562,\"$user_id\":408142433,\"desktop\":True,\"mobile\":False,\"Source\":\"Other sources\",\"referrer\":\"/auth/verify\",\"Landing Page\":False,\"Page Type\":\"HP\",\"Distinct Id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"ow1oqy0a68ys58at\",\"flushAfter\":1727087308565,\"payload\":{\"event\":\"POW_HP_Viewed\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/\",\"$browser_version\":124,\"$screen_height\":991,\"$screen_width\":1762,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"fumvfxcu3sylyxn0\",\"time\":1727087298.565,\"distinct_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$device_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":408142433,\"Is Anonymous\":\"False\",\"Session ID\":\"5bce2c5b-4187-4e86-be94-e2ef004c\",\"V2 Cat-Nav Exp Enabled\":False,\"last event time\":1727087298562,\"desktop\":True,\"mobile\":False,\"Source\":\"Other sources\",\"referrer\":\"/auth/verify\",\"Landing Page\":False,\"Page Type\":\"HP\",\"Distinct Id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"n6r9jwjtcl5537iv\",\"flushAfter\":1727087308568,\"payload\":{\"event\":\"POW Pageview\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/\",\"$browser_version\":124,\"$screen_height\":991,\"$screen_width\":1762,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"45p9akdgf2iwzwws\",\"time\":1727087298.568,\"distinct_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$device_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"Is Anonymous\":\"False\",\"Session ID\":\"5bce2c5b-4187-4e86-be94-e2ef004c\",\"V2 Cat-Nav Exp Enabled\":False,\"last event time\":1727087298566,\"$user_id\":408142433,\"Landing Page\":False,\"Page Type\":\"HP\",\"from\":\"HP\",\"status\":False,\"Distinct Id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"vaq3ckn227zec4b8\",\"flushAfter\":1727087308569,\"payload\":{\"event\":\"POW Pageview\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/\",\"$browser_version\":124,\"$screen_height\":991,\"$screen_width\":1762,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"z5knve9dsqv4f2v2\",\"time\":1727087298.569,\"distinct_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$device_id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":408142433,\"Is Anonymous\":\"False\",\"Session ID\":\"5bce2c5b-4187-4e86-be94-e2ef004c\",\"V2 Cat-Nav Exp Enabled\":False,\"last event time\":1727087298566,\"Landing Page\":False,\"Page Type\":\"HP\",\"from\":\"HP\",\"status\":False,\"Distinct Id\":\"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}}]"}]}]}
-# cookie_list = {'cookies': [{'name': 'isWG', 'value': 'False', 'domain': 'www.meesho.com', 'path': '/', 'expires': -1, 'httpOnly': False, 'secure': False, 'sameSite': 'Lax'}, {'name': 'CAT_NAV_V2_COOKIE', 'value': '0.7561001020345164', 'domain': 'www.meesho.com', 'path': '/', 'expires': -1, 'httpOnly': False, 'secure': False, 'sameSite': 'Lax'}, {'name': 'ak_bmsc', 'value': '1376095751ECA10CE245470464A7C15A~000000000000000000000000000000~YAAQFZx6XMT0Th2SAQAACXhsHhk9q2pKzKJRl8sS0bIKYxtuz5D9xWp1us/wOBfZHCsnAs3UEYTpU0AADqEIPllp6RjqaH21TQGA4OVSV5UeChQkCQK7FaAmRmLJNg5PkPCSWKbKqnxM0LkIiH9GRFYshdiioos8+KaDI2tI6kD0u5oyGa8sKxKQu6x1HB4GRh1qfANIdcSOw986BVykSr4Di+NaQR/OgCsZK23GSLmnPneDDpGVOYw0AddGwQ0sCsHX0ORTUpz1y1kCE7L9qt918BJP/OTsx2NgbNvSXWDDDSXaceB8cwlMgaInUv5Zi/YwVGi0iSERhqQCzv33qdlLYi6Dd+idcqIyXA+S9mXku5I9tEnv/1u9MKlp07Jlc7rkGUOTEP/cBXWnx025W28kuNXpy6ZCpXac+x7UOs4LtfEO2Fm74IQVP4F/aYrflwn1tG8=', 'domain': '.meesho.com', 'path': '/', 'expires': 1727678621, 'httpOnly': False, 'secure': False, 'sameSite': 'Lax'}, {'name': '__logged_in_user_id_', 'value': '408142433', 'domain': 'www.meesho.com', 'path': '/', 'expires': 1727678621, 'httpOnly': False, 'secure': False, 'sameSite': 'Lax'}, {'name': '_is_logged_in_', 'value': '1', 'domain': 'www.meesho.com', 'path': '/', 'expires': 1727678621, 'httpOnly': False, 'secure': True, 'sameSite': 'Lax'}, {'name': '__connect.sid__', 'value': 's%3AewyFcS-R7LL4oBD5iU6_o1phexcvKePo.PYEUU6qljn%2FnM5Tjt7nDySTjQA4tjPFKCY0VdlsiDLs', 'domain': 'www.meesho.com', 'path': '/', 'expires': 1727678621, 'httpOnly': True, 'secure': True, 'sameSite': 'Lax'}, {'name': '_abck', 'value': '1B4B2D9AA5481B61B0A210E285010B84~-1~YAAQFZx6XEIATx2SAQAAq69sHgwJAsZZbSRoR76bnAQCDXC7oH9aDBpiM7E4sCHIvvkGR5lQA8eOH1LKqxSZCFc9/+JLQ86Ju9dmXvOuJjkLjoc5cp49Ow1ZaVjCfMyOGS5DivE3wxXRGruBp6GeltWZ25Cce0mGrXnJ9kp9S9IBoRS3spp1Px9ktjvXpr6F8te9W8wXgNEwgIrbwIbcddvWkJPneD8Ct4FC+7X4ybPtxSgw4Ni2mprYHA3o4Jx4OI7C6IpzfecOaOw5mAG6vDBKY6rznqEIplAlLtPlv+k5ULjTdbP7dOkTrLfFlLQMmM9MHMdO9EPuMwxOwv3tzeILKZXJKll6R+fNZwRtS3MDgZDCNuzAgjK9Th/JxY5QOfJLODA0HN3i9E4+t17leZRP88ooSokOgT0UDUh008QP5j4RmRocJbN6TMDDb/Y9ojlnEAHngEwNJabyravmpVK4QYK31F1vhAJRxhrJtxY1nPP+GJ47VkFhXp5e9MYkb8ytv8Xj0QnN7My4lvHmd6Ebcb4A+UEpZ+Zu0GkBCZ7nmLbY5HusloR3gKrFYnovhfkCVUzKOhWF~-1~-1~-1', 'domain': '.meesho.com', 'path': '/', 'expires': 1727678621, 'httpOnly': False, 'secure': False, 'sameSite': 'Lax'}, {'name': 'bm_sz', 'value': '235D4BAD3E7D3B525B411210D600B6D2~YAAQFZx6XEQATx2SAQAAq69sHhn1tw0NWWAKsv7b/qcp2R559aXiEOUuu4p9pw3F2C+GEd6+ZeXJQOBqo4SkF+KjuBumxkoBZekzQMC6G28iiP4lyOvRjL1Zw+FznKNIJ9PxiC7Rm7IFIgyWA6aeM87Lbrp28WzEt+pUBkH2Rf6kOcKa4HFL+K/pciEWQa73IH9fcPUR75xRYmGMonwS3nsXfLYbJVCDWJdQG2/BlwPSUMM/ZcM2ZbEltPS89b/QukP1MMBkjN5XOCq4O/xhAQq/xZ0bHjvS84caiUPAOz8wKtueykEKG2pCmUYRa3+FRe355VAKRjZwwcQZktsiCk/tXv9eJWxUR8Axa8FxAviTe5gHjgW7hZptwI6vDplFthjqskGqBejS4IVzEvBCtpdXncAg+X4=~3621172~4470337', 'domain': '.meesho.com', 'path': '/', 'expires': 1727678621, 'httpOnly': False, 'secure': False, 'sameSite': 'Lax'}, {'name': 'location-details', 'value': '%7B%22city%22%3A%22Bengaluru%22%2C%22pincode%22%3A%22560001%22%2C%22lat%22%3A%2213.2257%22%2C%22long%22%3A%2277.575%22%7D', 'domain': 'www.meesho.com', 'path': '/', 'expires': 1727678621, 'httpOnly': False, 'secure': False, 'sameSite': 'Lax'}, {'name': 'mp_60483c180bee99d71ee5c084d7bb9d20_mixpanel', 'value': '%7B%22distinct_id%22%3A%20%221921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9%22%2C%22%24device_id%22%3A%20%221921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9%22%2C%22%24initial_referrer%22%3A%20%22%24direct%22%2C%22%24initial_referring_domain%22%3A%20%22%24direct%22%2C%22%24user_id%22%3A%20408142433%2C%22Is%20Anonymous%22%3A%20%22False%22%2C%22Session%20ID%22%3A%20%225bce2c5b-4187-4e86-be94-e2ef004c%22%2C%22V2%20Cat-Nav%20Exp%20Enabled%22%3A%20False%2C%22last%20event%20time%22%3A%201727087298566%2C%22__alias%22%3A%20408142433%7D', 'domain': '.meesho.com', 'path': '/', 'expires': 1727678621, 'httpOnly': False, 'secure': False, 'sameSite': 'Lax'}, {'name': 'bm_sv', 'value': 'F1B4B8030D8FB545A00D6E8AAF0AAA7A~YAAQFZx6XEcCTx2SAQAAOLlsHhni0MuYV++5lCzcrPIh8k775SQSPdNsGtA0Hm+QV5DO16lqSMvD4Efs87ogbLqQbxezJVhIkmpr10EwBHIpFSw5bXFqWwQeI23LJE9k3PaYkkiw1qDrwjMN7zFhlINZc5KZ0QndKbHu1ok6QuedWWK0wRBJL9ngQpSU6etX/fEfe1tYcKdW/EjPtWiSg8+jyrNthUZjgyX+AWMzP4XyjlR8s87QKfjfpLyHUXFw~1', 'domain': '.meesho.com', 'path': '/', 'expires': 1727678621, 'httpOnly': False, 'secure': False, 'sameSite': 'Lax'}], 'origins': [{'origin': 'https://www.meesho.com', 'localStorage': [{'name': 'ak_a', 'value': '1B4B2D9AA5481B61B0A210E285010B84'}, {'name': 'ak_ax', 'value': '-1'}, {'name': '__mpq_60483c180bee99d71ee5c084d7bb9d20_pp', 'value': '[{"id":"k6jokxmfzjgwhunm","flushAfter":1727087306872,"payload":{"$set":{"$os":"Windows","$browser":"Chrome","$browser_version":124,"$initial_referrer":"$direct","$initial_referring_domain":"$direct","Unique UserID":408142433,"User ID":408142433,"Distinct ID - MIP":408142433,"Category Navigation AB":"default","Phone":"6354786744"},"$token":"60483c180bee99d71ee5c084d7bb9d20","$distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$user_id":408142433}},{"id":"5wpw5or596v9cxia","flushAfter":1727087306873,"payload":{"$set":{"$os":"Windows","$browser":"Chrome","$browser_version":124,"$initial_referrer":"$direct","$initial_referring_domain":"$direct","Unique UserID":408142433,"User ID":408142433,"Distinct ID - MIP":408142433,"Category Navigation AB":"default","Phone":"6354786744"},"$token":"60483c180bee99d71ee5c084d7bb9d20","$distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$user_id":408142433}}]'}, {'name': '__mpq_60483c180bee99d71ee5c084d7bb9d20_ev', 'value': '[{"id":"s24ox4tjjalawqqf","flushAfter":1727087304708,"payload":{"event":"POW Auth OTP Entered","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/auth/verify","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"e4wrigoqa8jpocw0","time":1727087294.708,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","Is Anonymous":"True","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087294705,"auth_type":"normal_auth","Distinct Id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"km7b5lz83jr4jj30","flushAfter":1727087304827,"payload":{"event":"POW Auth Verify OTP Clicked","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/auth/verify","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"bpszanxqjcsin80a","time":1727087294.827,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","Is Anonymous":"True","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087294823,"auth_type":"normal_auth","Distinct Id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"fu210zkx9hg6gy98","flushAfter":1727087304835,"payload":{"event":"POW Auth OTP Submitted","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/auth/verify","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"d453teluvpdcrly1","time":1727087294.834,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","Is Anonymous":"True","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087294832,"auth_type":"normal_auth","Distinct Id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"1cknwhvx02fvcj7q","flushAfter":1727087306866,"payload":{"event":"$create_alias","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/auth/verify","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"ee540t9pxmo6ahd7","time":1727087296.866,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","Is Anonymous":"False","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087294832,"alias":408142433,"token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"2i8wa8hzxj8s010x","flushAfter":1727087306871,"payload":{"event":"$identify","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/auth/verify","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"j96pakkxb5g3uwxm","time":1727087296.871,"distinct_id":408142433,"$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":408142433,"Is Anonymous":"False","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087294832,"$anon_distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"71dohx1qgfjpj6ou","flushAfter":1727087306889,"payload":{"event":"POW Auth OTP Verification Successful","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/auth/verify","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"o01ezo5l1134r3pv","time":1727087296.889,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":408142433,"Is Anonymous":"False","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087296887,"auth_type":"normal_auth","Distinct Id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"96lkmrsmkr0e721g","flushAfter":1727087306895,"payload":{"event":"POW Auth Successful","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/auth/verify","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"5botenakjjfksxiw","time":1727087296.895,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":408142433,"Is Anonymous":"False","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087296892,"Action Event Name":"","Meesho User ID ":408142433,"auth_type":"normal_auth","auth_method":"otp","Distinct Id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"ibsb334u71zeibyn","flushAfter":1727087306899,"payload":{"event":"POW App Signup","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/auth/verify","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"8uv5xfjkykcd53n0","time":1727087296.898,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":408142433,"Is Anonymous":"False","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087296896,"auth_type":"normal_auth","Distinct Id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"7vbs4y2oaev1m57s","flushAfter":1727087306868,"payload":{"event":"$identify","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/auth/verify","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"xioa697960dnz6s1","time":1727087296.868,"distinct_id":408142433,"$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":408142433,"Is Anonymous":"False","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087294832,"$anon_distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"ourb6vp8gtjc31xt","flushAfter":1727087308563,"payload":{"event":"POW_HP_Viewed","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"t1hd12ug0adr6kvc","time":1727087298.563,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","Is Anonymous":"False","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087298562,"$user_id":408142433,"desktop":True,"mobile":False,"Source":"Other sources","referrer":"/auth/verify","Landing Page":False,"Page Type":"HP","Distinct Id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"ow1oqy0a68ys58at","flushAfter":1727087308565,"payload":{"event":"POW_HP_Viewed","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"fumvfxcu3sylyxn0","time":1727087298.565,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":408142433,"Is Anonymous":"False","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087298562,"desktop":True,"mobile":False,"Source":"Other sources","referrer":"/auth/verify","Landing Page":False,"Page Type":"HP","Distinct Id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"n6r9jwjtcl5537iv","flushAfter":1727087308568,"payload":{"event":"POW Pageview","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"45p9akdgf2iwzwws","time":1727087298.568,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","Is Anonymous":"False","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087298566,"$user_id":408142433,"Landing Page":False,"Page Type":"HP","from":"HP","status":False,"Distinct Id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"vaq3ckn227zec4b8","flushAfter":1727087308569,"payload":{"event":"POW Pageview","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"z5knve9dsqv4f2v2","time":1727087298.569,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":408142433,"Is Anonymous":"False","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087298566,"Landing Page":False,"Page Type":"HP","from":"HP","status":False,"Distinct Id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}}]'}]}]}
-cookie_list = {'cookies': [{'name': 'isWG', 'value': 'False', 'domain': 'www.meesho.com', 'path': '/', 'expires': -1, 'httpOnly': False, 'secure': False, 'sameSite': 'Lax'}, {'name': 'CAT_NAV_V2_COOKIE', 'value': '0.7561001020345164', 'domain': 'www.meesho.com', 'path': '/', 'expires': -1, 'httpOnly': False, 'secure': False, 'sameSite': 'Lax'}, {'name': 'ak_bmsc', 'value': '1376095751ECA10CE245470464A7C15A~000000000000000000000000000000~YAAQFZx6XMT0Th2SAQAACXhsHhk9q2pKzKJRl8sS0bIKYxtuz5D9xWp1us/wOBfZHCsnAs3UEYTpU0AADqEIPllp6RjqaH21TQGA4OVSV5UeChQkCQK7FaAmRmLJNg5PkPCSWKbKqnxM0LkIiH9GRFYshdiioos8+KaDI2tI6kD0u5oyGa8sKxKQu6x1HB4GRh1qfANIdcSOw986BVykSr4Di+NaQR/OgCsZK23GSLmnPneDDpGVOYw0AddGwQ0sCsHX0ORTUpz1y1kCE7L9qt918BJP/OTsx2NgbNvSXWDDDSXaceB8cwlMgaInUv5Zi/YwVGi0iSERhqQCzv33qdlLYi6Dd+idcqIyXA+S9mXku5I9tEnv/1u9MKlp07Jlc7rkGUOTEP/cBXWnx025W28kuNXpy6ZCpXac+x7UOs4LtfEO2Fm74IQVP4F/aYrflwn1tG8=', 'domain': '.meesho.com', 'path': '/', 'expires': 1727678621, 'httpOnly': False, 'secure': False, 'sameSite': 'Lax'}, {'name': '__logged_in_user_id_', 'value': '408142433', 'domain': 'www.meesho.com', 'path': '/', 'expires': 1727678621, 'httpOnly': False, 'secure': False, 'sameSite': 'Lax'}, {'name': '_is_logged_in_', 'value': '1', 'domain': 'www.meesho.com', 'path': '/', 'expires': 1727678621, 'httpOnly': False, 'secure': True, 'sameSite': 'Lax'}, {'name': '__connect.sid__', 'value': 's%3AewyFcS-R7LL4oBD5iU6_o1phexcvKePo.PYEUU6qljn%2FnM5Tjt7nDySTjQA4tjPFKCY0VdlsiDLs', 'domain': 'www.meesho.com', 'path': '/', 'expires': 1727678621, 'httpOnly': True, 'secure': True, 'sameSite': 'Lax'}, {'name': '_abck', 'value': '1B4B2D9AA5481B61B0A210E285010B84~-1~YAAQFZx6XEIATx2SAQAAq69sHgwJAsZZbSRoR76bnAQCDXC7oH9aDBpiM7E4sCHIvvkGR5lQA8eOH1LKqxSZCFc9/+JLQ86Ju9dmXvOuJjkLjoc5cp49Ow1ZaVjCfMyOGS5DivE3wxXRGruBp6GeltWZ25Cce0mGrXnJ9kp9S9IBoRS3spp1Px9ktjvXpr6F8te9W8wXgNEwgIrbwIbcddvWkJPneD8Ct4FC+7X4ybPtxSgw4Ni2mprYHA3o4Jx4OI7C6IpzfecOaOw5mAG6vDBKY6rznqEIplAlLtPlv+k5ULjTdbP7dOkTrLfFlLQMmM9MHMdO9EPuMwxOwv3tzeILKZXJKll6R+fNZwRtS3MDgZDCNuzAgjK9Th/JxY5QOfJLODA0HN3i9E4+t17leZRP88ooSokOgT0UDUh008QP5j4RmRocJbN6TMDDb/Y9ojlnEAHngEwNJabyravmpVK4QYK31F1vhAJRxhrJtxY1nPP+GJ47VkFhXp5e9MYkb8ytv8Xj0QnN7My4lvHmd6Ebcb4A+UEpZ+Zu0GkBCZ7nmLbY5HusloR3gKrFYnovhfkCVUzKOhWF~-1~-1~-1', 'domain': '.meesho.com', 'path': '/', 'expires': 1727678621, 'httpOnly': False, 'secure': False, 'sameSite': 'Lax'}, {'name': 'bm_sz', 'value': '235D4BAD3E7D3B525B411210D600B6D2~YAAQFZx6XEQATx2SAQAAq69sHhn1tw0NWWAKsv7b/qcp2R559aXiEOUuu4p9pw3F2C+GEd6+ZeXJQOBqo4SkF+KjuBumxkoBZekzQMC6G28iiP4lyOvRjL1Zw+FznKNIJ9PxiC7Rm7IFIgyWA6aeM87Lbrp28WzEt+pUBkH2Rf6kOcKa4HFL+K/pciEWQa73IH9fcPUR75xRYmGMonwS3nsXfLYbJVCDWJdQG2/BlwPSUMM/ZcM2ZbEltPS89b/QukP1MMBkjN5XOCq4O/xhAQq/xZ0bHjvS84caiUPAOz8wKtueykEKG2pCmUYRa3+FRe355VAKRjZwwcQZktsiCk/tXv9eJWxUR8Axa8FxAviTe5gHjgW7hZptwI6vDplFthjqskGqBejS4IVzEvBCtpdXncAg+X4=~3621172~4470337', 'domain': '.meesho.com', 'path': '/', 'expires': 1727678621, 'httpOnly': False, 'secure': False, 'sameSite': 'Lax'}, {'name': 'location-details', 'value': '%7B%22city%22%3A%22Bengaluru%22%2C%22pincode%22%3A%22560001%22%2C%22lat%22%3A%2213.2257%22%2C%22long%22%3A%2277.575%22%7D', 'domain': 'www.meesho.com', 'path': '/', 'expires': 1727678621, 'httpOnly': False, 'secure': False, 'sameSite': 'Lax'}, {'name': 'mp_60483c180bee99d71ee5c084d7bb9d20_mixpanel', 'value': '%7B%22distinct_id%22%3A%20%221921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9%22%2C%22%24device_id%22%3A%20%221921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9%22%2C%22%24initial_referrer%22%3A%20%22%24direct%22%2C%22%24initial_referring_domain%22%3A%20%22%24direct%22%2C%22%24user_id%22%3A%20408142433%2C%22Is%20Anonymous%22%3A%20%22False%22%2C%22Session%20ID%22%3A%20%225bce2c5b-4187-4e86-be94-e2ef004c%22%2C%22V2%20Cat-Nav%20Exp%20Enabled%22%3A%20False%2C%22last%20event%20time%22%3A%201727087298566%2C%22__alias%22%3A%20408142433%7D', 'domain': '.meesho.com', 'path': '/', 'expires': 1727678621, 'httpOnly': False, 'secure': False, 'sameSite': 'Lax'}, {'name': 'bm_sv', 'value': 'F1B4B8030D8FB545A00D6E8AAF0AAA7A~YAAQFZx6XEcCTx2SAQAAOLlsHhni0MuYV++5lCzcrPIh8k775SQSPdNsGtA0Hm+QV5DO16lqSMvD4Efs87ogbLqQbxezJVhIkmpr10EwBHIpFSw5bXFqWwQeI23LJE9k3PaYkkiw1qDrwjMN7zFhlINZc5KZ0QndKbHu1ok6QuedWWK0wRBJL9ngQpSU6etX/fEfe1tYcKdW/EjPtWiSg8+jyrNthUZjgyX+AWMzP4XyjlR8s87QKfjfpLyHUXFw~1', 'domain': '.meesho.com', 'path': '/', 'expires': 1727678621, 'httpOnly': False, 'secure': False, 'sameSite': 'Lax'}], 'origins': [{'origin': 'https://www.meesho.com', 'localStorage': [{'name': 'ak_a', 'value': '1B4B2D9AA5481B61B0A210E285010B84'}, {'name': 'ak_ax', 'value': '-1'}, {'name': '__mpq_60483c180bee99d71ee5c084d7bb9d20_pp', 'value': '[{"id":"k6jokxmfzjgwhunm","flushAfter":1727087306872,"payload":{"$set":{"$os":"Windows","$browser":"Chrome","$browser_version":124,"$initial_referrer":"$direct","$initial_referring_domain":"$direct","Unique UserID":408142433,"User ID":408142433,"Distinct ID - MIP":408142433,"Category Navigation AB":"default","Phone":"6354786744"},"$token":"60483c180bee99d71ee5c084d7bb9d20","$distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$user_id":408142433}},{"id":"5wpw5or596v9cxia","flushAfter":1727087306873,"payload":{"$set":{"$os":"Windows","$browser":"Chrome","$browser_version":124,"$initial_referrer":"$direct","$initial_referring_domain":"$direct","Unique UserID":408142433,"User ID":408142433,"Distinct ID - MIP":408142433,"Category Navigation AB":"default","Phone":"6354786744"},"$token":"60483c180bee99d71ee5c084d7bb9d20","$distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$user_id":408142433}}]'}, {'name': '__mpq_60483c180bee99d71ee5c084d7bb9d20_ev', 'value': '[{"id":"s24ox4tjjalawqqf","flushAfter":1727087304708,"payload":{"event":"POW Auth OTP Entered","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/auth/verify","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"e4wrigoqa8jpocw0","time":1727087294.708,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","Is Anonymous":"True","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087294705,"auth_type":"normal_auth","Distinct Id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"km7b5lz83jr4jj30","flushAfter":1727087304827,"payload":{"event":"POW Auth Verify OTP Clicked","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/auth/verify","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"bpszanxqjcsin80a","time":1727087294.827,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","Is Anonymous":"True","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087294823,"auth_type":"normal_auth","Distinct Id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"fu210zkx9hg6gy98","flushAfter":1727087304835,"payload":{"event":"POW Auth OTP Submitted","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/auth/verify","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"d453teluvpdcrly1","time":1727087294.834,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","Is Anonymous":"True","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087294832,"auth_type":"normal_auth","Distinct Id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"1cknwhvx02fvcj7q","flushAfter":1727087306866,"payload":{"event":"$create_alias","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/auth/verify","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"ee540t9pxmo6ahd7","time":1727087296.866,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","Is Anonymous":"False","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087294832,"alias":408142433,"token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"2i8wa8hzxj8s010x","flushAfter":1727087306871,"payload":{"event":"$identify","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/auth/verify","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"j96pakkxb5g3uwxm","time":1727087296.871,"distinct_id":408142433,"$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":408142433,"Is Anonymous":"False","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087294832,"$anon_distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"71dohx1qgfjpj6ou","flushAfter":1727087306889,"payload":{"event":"POW Auth OTP Verification Successful","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/auth/verify","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"o01ezo5l1134r3pv","time":1727087296.889,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":408142433,"Is Anonymous":"False","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087296887,"auth_type":"normal_auth","Distinct Id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"96lkmrsmkr0e721g","flushAfter":1727087306895,"payload":{"event":"POW Auth Successful","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/auth/verify","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"5botenakjjfksxiw","time":1727087296.895,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":408142433,"Is Anonymous":"False","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087296892,"Action Event Name":"","Meesho User ID ":408142433,"auth_type":"normal_auth","auth_method":"otp","Distinct Id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"ibsb334u71zeibyn","flushAfter":1727087306899,"payload":{"event":"POW App Signup","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/auth/verify","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"8uv5xfjkykcd53n0","time":1727087296.898,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":408142433,"Is Anonymous":"False","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087296896,"auth_type":"normal_auth","Distinct Id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"7vbs4y2oaev1m57s","flushAfter":1727087306868,"payload":{"event":"$identify","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/auth/verify","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"xioa697960dnz6s1","time":1727087296.868,"distinct_id":408142433,"$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":408142433,"Is Anonymous":"False","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087294832,"$anon_distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"ourb6vp8gtjc31xt","flushAfter":1727087308563,"payload":{"event":"POW_HP_Viewed","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"t1hd12ug0adr6kvc","time":1727087298.563,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","Is Anonymous":"False","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087298562,"$user_id":408142433,"desktop":True,"mobile":False,"Source":"Other sources","referrer":"/auth/verify","Landing Page":False,"Page Type":"HP","Distinct Id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"ow1oqy0a68ys58at","flushAfter":1727087308565,"payload":{"event":"POW_HP_Viewed","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"fumvfxcu3sylyxn0","time":1727087298.565,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":408142433,"Is Anonymous":"False","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087298562,"desktop":True,"mobile":False,"Source":"Other sources","referrer":"/auth/verify","Landing Page":False,"Page Type":"HP","Distinct Id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"n6r9jwjtcl5537iv","flushAfter":1727087308568,"payload":{"event":"POW Pageview","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"45p9akdgf2iwzwws","time":1727087298.568,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","Is Anonymous":"False","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087298566,"$user_id":408142433,"Landing Page":False,"Page Type":"HP","from":"HP","status":False,"Distinct Id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}},{"id":"vaq3ckn227zec4b8","flushAfter":1727087308569,"payload":{"event":"POW Pageview","properties":{"$os":"Windows","$browser":"Chrome","$current_url":"https://www.meesho.com/","$browser_version":124,"$screen_height":991,"$screen_width":1762,"mp_lib":"web","$lib_version":"2.45.0","$insert_id":"z5knve9dsqv4f2v2","time":1727087298.569,"distinct_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$device_id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","$initial_referrer":"$direct","$initial_referring_domain":"$direct","$user_id":408142433,"Is Anonymous":"False","Session ID":"5bce2c5b-4187-4e86-be94-e2ef004c","V2 Cat-Nav Exp Enabled":False,"last event time":1727087298566,"Landing Page":False,"Page Type":"HP","from":"HP","status":False,"Distinct Id":"1921e6c8676354-077f647cf0b8ad-26001d51-1aa4de-1921e6c86775d9","token":"60483c180bee99d71ee5c084d7bb9d20"}}}]'}]}]}
-
-# for cookie in cookie_list['cookies']:
-#     # Selenium expects expiration as an integer, remove "expires" if it's -1
-#     if cookie.get('expires') == -1:
-#         cookie.pop('expires')
-#     driver.add_cookie(cookie)
-
-with open('9737090010_20241112.json', 'r') as f:
-    cookies = json.loads(f.read())
-
-for cookie in cookies['cookies']:
-    driver.add_cookie(cookie)
-driver.refresh()
-
-# cookie_list = [{'name': name, 'value': value, 'path': '/', 'domain': 'www.meesho.com'} for name, value in cookies.items()]
-# for cookie in cookie_list:
-#     driver.add_cookie(cookie)
-# driver.refresh()
-
 
 path = 1
-
-links_available = True
-try:
-    product_list = WebDriverWait(driver, 5).until(
-        EC.presence_of_all_elements_located(
-            (By.XPATH, f'//*[@id="__next"]/div[3]/div[2]/div/div/div[2]/div/div[2]/div[1]/div/div/a')))
-except:
-    product_list = []
 
 pincode = '560001'
 scraped_data_count = 1
 starting_position = 0
 pos = 1
 
-while links_available:
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    last_length = len(product_list)
-    # for link in product_list[starting_position:]:
-    while True:
-        try:
-            print('\n')
-            link = WebDriverWait(driver, 5).until(
-                EC.presence_of_element_located(
-                    (By.XPATH, f'//*[@id="__next"]/div[3]/div[2]/div/div/div[2]/div/div[2]/div[1]/div/div[{pos}]/a')))
-            local_cursor.execute(f"SELECT * FROM meesho_table WHERE url = '{link.get_attribute('href')}' and status = 'done'")
-            local_connect.commit()
-            print(link.get_attribute('href'))
-            pos += 1
-            if local_cursor.fetchone():
-                print('url already scraped...', '\n')
-                continue
 
-            driver.execute_script("arguments[0].scrollIntoView();", link)
-            random_waite()
-            ActionChains(driver).scroll_to_element(link).perform()
-            # print(link.get_attribute('href'))
-            driver.execute_script(f'''window.open("{link.get_attribute('href')}","_blank");''')
-
-            driver.switch_to.window(driver.window_handles[1])
-            random_waite()
-
-            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-
-            try:
-                review = WebDriverWait(driver, 1).until(
-                    EC.presence_of_element_located(
-                        (By.XPATH, '//h1[contains(text(), "Access Denied")]')))
-                if 'access denied' in review.text.lower():
-                    print('access denied')
-                    page_id = hashlib.sha256((driver.current_url + f'_{pincode}').encode()).hexdigest()
-                    insert_query = f"""INSERT INTO meesho_table(url, pincode, page_hash, status) VALUES ('{driver.current_url}', '{pincode}', '{page_id}', 'pending')"""
-                    local_cursor.execute(insert_query)
-                    local_connect.commit()
-                    # driver.quit()
-                    continue
-            except:
-                pass
-
-            review = WebDriverWait(driver, 5).until(
-                EC.presence_of_element_located(
-                    (By.XPATH, '//span[contains(@class, "ShopCardstyled__ShopName")]')))
-            ActionChains(driver).scroll_to_element(review).perform()
-            driver.execute_script("arguments[0].scrollIntoView();", review)
-
-            random_waite()
-
-            try:
-                pin_input = WebDriverWait(driver, 1).until(
-                    EC.visibility_of_element_located((By.XPATH, '//input[@id="pin"]')))
-
-                if pincode == pin_input.get_attribute('value'):
-                    print(pin_input.get_attribute('value'))
-                else:
-                    # driver.execute_script("arguments[0].value = '';", pin_input)
-                    # pin_input.clear()
-                    # pin_input.send_keys('')
-                    for _ in range(int(pin_input.get_attribute('maxlength'))):
-                        pin_input.send_keys(Keys.BACKSPACE)
-                        small_random_waite()
-                    pin_input.send_keys(pincode)
-            except Exception as e:
-                print('Input is not available')
-                page_id = hashlib.sha256((driver.current_url + f'_{pincode}').encode()).hexdigest()
-                insert_query = f"""INSERT INTO meesho_table(url, pincode, page_hash, status) VALUES ('{driver.current_url}', '{pincode}', '{page_id}', 'pending')"""
-                local_cursor.execute(insert_query)
-                local_connect.commit()
-                continue
+headers = {
+    'accept': 'application/json, text/plain, */*',
+    'accept-language': 'en-US,en;q=0.9,tr;q=0.8',
+    'cache-control': 'no-cache',
+    'content-type': 'application/json',
+    'meesho-iso-country-code': 'IN',
+    'origin': 'https://www.meesho.com',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://www.meesho.com/famshu-electronics-water-sensor-reusable-led-diyas-for-home-decor-festivals-decoration-diwali-light-plastic-table-diya-set-pack-of-12/p/6c2xy9',
+    'sec-ch-ua': '"Chromium";v="130", "Google Chrome";v="130", "Not?A_Brand";v="99"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+}
 
 
-            element = WebDriverWait(driver, 2).until(
-                EC.presence_of_element_located((By.XPATH, '//*[@id="pin"]//button')))
-            ActionChains(driver).click_and_hold(element).click(element).perform()
-            # element.click()
+def create_session(file_name):
+    options = webdriver.ChromeOptions()
+    options.add_argument("--disable-blink-features=AutomationControlled")
+    options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    options.add_experimental_option('useAutomationExtension', False)
+    user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+    options.add_argument(f"user-agent={user_agent}")
+    options.add_argument('--disable-gpu')
+    options.add_argument('--no-sandbox')
 
-            # ActionChains(driver).click_and_hold(element).click(element).perform()
+    driver = webdriver.Chrome(options=options)
 
-            # time.sleep(5)
-            # try:
-            #     WebDriverWait(driver, 5).until(
-            #         EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[1]/div/div[1]')))
-            #     print("alert visible")
-            # except Exception as e:
-            #     print('No alert', e)
+    driver.get(main_url)
+    driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+    with open(file_name, 'r') as f:
+        cookies = json.loads(f.read())
 
+    for cookie in cookies['cookies']:
+        driver.add_cookie(cookie)
+    driver.refresh()
+    return driver
 
-            time.sleep(2)
-            try:
-                WebDriverWait(driver, 1).until(
-                    EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[1]/div[2]')))
-                print("error alert visible")
-                driver.close()
-                driver.switch_to.window(driver.window_handles[0])
-                continue
-            except Exception as e:
-                print('No error alert')
+def scrapping(link, driver):
+    global scraped_data_count
+    try:
+        local_cursor.execute("SELECT * FROM pages WHERE url = %s AND status = %s", (link, 'done'))
+        local_connect.commit()
+        print(link)
+        if local_cursor.fetchone():
+            print('url already scraped...', '\n')
+            return
 
-            review = WebDriverWait(driver, 5).until(
-                EC.presence_of_element_located((By.XPATH, '//span[contains(@class, "ShopCardstyled__ShopName")]')))
-            ActionChains(driver).scroll_to_element(review).perform()
-            driver.execute_script("arguments[0].scrollIntoView();", review)
-
-            random_waite()
-            # ActionChains(driver).click_and_hold(review).perform()
-            try:
-                text_data = WebDriverWait(driver, 2).until(EC.presence_of_element_located(
-                    (By.XPATH, '//*[contains(@class,"sc-eDvSVe dCivsU") and not(contains(text(), "Dispatch"))]')))
-                print(text_data.text)
-                if 'Enter Pincode for Estimated Delivery Date' in text_data.text:
-                    # change_vpn(api, locations)
-                    page_id = hashlib.sha256((driver.current_url + f'_{pincode}').encode()).hexdigest()
-                    insert_query = f"""INSERT INTO meesho_table(url, pincode, page_hash, status) VALUES ('{driver.current_url}', '{pincode}', '{page_id}', 'pending')"""
-                    local_cursor.execute(insert_query)
-                    local_connect.commit()
-                    # driver.quit()
-                    continue
-            except:
-                pass
+        driver.execute_script(f'''window.open("{link}","_self");''')
+        selenium_cookies = driver.get_cookies()
+        cookies = {cookie['name']: cookie['value'] for cookie in selenium_cookies}
+        product_id = str(driver.current_url).split('/')[-1]
 
 
-            page_id = hashlib.sha256((driver.current_url + f'_{pincode}').encode()).hexdigest()
-            # Writing response to a file with a unique name using the hash ID
-            # with open(fr'C:\project_files\meesho_project\shipping_page\{page_id}.html', 'w', encoding="utf-8") as file:
-            #     file.write(driver.page_source)
-            with zipfile.ZipFile(fr'C:\project_files\meesho_project\shipping_page\{page_id}' + '.zip', 'w',
-                                 zipfile.ZIP_DEFLATED) as zip_file:
-                zip_file.writestr(f'HTML_{page_id}.html', driver.page_source)
+        json_data = {
+            'include_catalog': True,
+            'ad_active': False,
+        }
 
-            insert_query = f"""INSERT INTO meesho_table(url, pincode, page_hash, status) VALUES ('{driver.current_url}', '{pincode}', '{page_id}', 'done')"""
-            local_cursor.execute(insert_query)
-            local_connect.commit()
-            scraped_data_count += 1
+        response = requests.post(f'https://www.meesho.com/api/v1/product/{product_id}', cookies=cookies, headers=headers,
+                                 json=json_data)
 
-            random_waite()
-            if len(driver.window_handles) == 1:
-                driver.switch_to.window(driver.window_handles[0])
-            else:
-                driver.close()
-                driver.switch_to.window(driver.window_handles[0])
+        # supplier_id = WebDriverWait(driver, 10).until(EC.presence_of_element_located(
+        #     (By.XPATH, '//*[@id="__NEXT_DATA__"]'))).text
 
-        except Exception as e:
-            print("Main Exp", e)
-            if len(driver.window_handles) == 1:
-                driver.switch_to.window(driver.window_handles[0])
-                time.sleep(2)
-                driver.execute_script("arguments[0].scrollIntoView();", product_list[-1])
-            else:
-                driver.close()
-                driver.switch_to.window(driver.window_handles[0])
+        supplier_id = json.loads(response.text)['result']['product']['suppliers'][0]['id']
+        print(supplier_id)
 
-            random_waite()
+        json_data = {
+            'dest_pin': '560001',
+            'product_id': product_id,
+            'supplier_id': supplier_id,
+            'quantity': 1,
+        }
+        response = requests.post(
+            'https://www.meesho.com/api/v1/check-shipping-delivery-date',
+            cookies=cookies,
+            headers=headers,
+            json=json_data,
+        )
 
-    random_waite()
-    driver.execute_script("arguments[0].scrollIntoView();", product_list[-1])
-    random_waite()
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    driver.execute_script("window.scrollTo(0, 400);")
-    random_waite()
-    product_list = WebDriverWait(driver, 10).until(
-        EC.presence_of_all_elements_located(
-            (By.XPATH, f'//*[@id="__next"]/div[3]/div[2]/div/div/div[2]/div/div[2]/div[1]/div/div/a')))
-    new_length = len(product_list)
-    print(last_length, '-', new_length)
-    starting_position = last_length + 1
-    if last_length == new_length:
-        break
+        print(response.status_code)
+        date = json.loads(response.text)['shipping']['estimated_delivery_date']
+        print(date)
+        # page_id = product_id + f'_{pincode}'
+        # with zipfile.ZipFile(fr'C:\project_files\meesho_project\shipping_page\{page_id}' + '.zip', 'w',
+        #                      zipfile.ZIP_DEFLATED) as zip_file:
+        #     zip_file.writestr(f'HTML_{page_id}.html', driver.page_source)
+        #
+        # insert_query = f"""INSERT INTO pages(url, pincode, page_hash, status) VALUES (%s, %s, %s, %s)"""
+        # local_cursor.execute(insert_query, (link, pincode, page_id, 'done'))
+        # local_connect.commit()
 
-# driver.implicitly_wait(100)
+        # update_query = f"""UPDATE template_20241017_distinct SET status_560001 = 'done' WHERE Product_Url_MEESHO = %s"""
+        # cursor.execute(update_query, (link,))
+        # connect.commit()
+
+        scraped_data_count += 1
+
+    except Exception as e:
+        print("Main Exp", e)
+
+
+driver1 = create_session('9737090010_20241112.json')
+
+query = f"SELECT Product_Url_MEESHO FROM `template_20241017_distinct_status` WHERE In_Stock_Status_MEESHO  = 'true'"
+cursor.execute(query)
+rows = cursor.fetchall()
+co_p = 1
+for pos, link_ in enumerate(rows):
+    link = link_[0]
+
+    if co_p == 1:
+        scrapping(link, driver1)

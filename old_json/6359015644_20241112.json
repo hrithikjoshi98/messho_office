@@ -1,0 +1,137 @@
+{
+  "cookies": [
+    {
+      "name": "isWG",
+      "value": "false",
+      "domain": "www.meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "CAT_NAV_V2_COOKIE",
+      "value": "0.9769621535151982",
+      "domain": "www.meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "ak_bmsc",
+      "value": "DDDE2C79909ED2FF5BA8CCE5AB76C0AE~000000000000000000000000000000~YAAQlCMRAsamEwaTAQAAOSfcHxn9QDNA8bIRy1jsS8mWPs5H1QB/eLavJXnkxnhk63f+rbmREVcijRBIqmWPWo9Vr9hlLNddKTIXlo9zSwVt7915qemDeYohDQQCM9GkWBse540r6WutbFzND1XsI5w7yRaDkC9J22wuTyACH2yxcajixb98+XfsnDT5y8nk3H6khAssL98PCHRnzEem46UVvKhxGZUuRqFcf6vnFYMag/HbEsFwHjVpYUR/1IZfsq05Gi7x3qjHC9TWulg1HR0NmxGRUXDx9fgJT/yBAwF/tpU+/xDIm8Fm2K/P0YbLCy+SEBfdIggqIaMP4emaCe+4TMAZbNMmzVZDXigjUrVgEMHjQi9XyeQ26aDxvf8Gn2KNq9tdn1ZMhWUfbBnVEDsWOrt3dbZhMhkuxR4iLLcScazTTha1a2yJwyxT1O4EUf091My1eYvlwF0pRw==",
+      "domain": ".meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__logged_in_user_id_",
+      "value": "130816858",
+      "domain": "www.meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_is_logged_in_",
+      "value": "1",
+      "domain": "www.meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__connect.sid__",
+      "value": "s%3Ab0XQuVW3_wtSmmZcdjls6zgK7QtQIrbl.0KWmdypgEF2pcqnHzfJYcM3pwPSwwExn0xtxo54DXpA",
+      "domain": "www.meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_abck",
+      "value": "B2AC3E051B6847A4FC24775D43BDB02E~0~YAAQlCMRAsunEwaTAQAAq2bcHwyYNAyTM79HhtVlzgaAFy2iR8lOK9Rg8+qyv4tok3MFfHYMaKI+hdXTtudEdPtOrM8a7VAMhWZHUoJkv+zedkLLatUGlyTt3SiqfbKu2is9YFyLdJi+2j4dCuJTT5GEX/bnY41Ok+hzD2HubF4A2Vmq3ZAiYUC2l9WHZJFsutHXHDW+mSX70nSp0SWusaW6yU/ZNJT8C9r0BL975rvjoRVtb2OOAG+nexHE5Xk9QwLFlc474psprgnB50eGxUsD7zZuW39JRYJu2ag7SxfmXJf5CYvcRfd5cEpbbn5Lamrt+IPp9lW4qLDjv42NvqLDBmiz0b1hWA5EGYghq2MuJNQsLJILymjgXobFw7vNRJwHjaVO/GFa8kkugU6QHglQaZ+nizVG0hl7zckfSBjkS0msh2AEDaD2ZUUI+eEK1ycgEQtwaMZAATnz+YZgHtYAbDVwwfb6a+aVWYuWNrNt3CrkIPQbKkjVp8aMVI/DkKE9ngE9Csuv/VFVANiX7z/0EY/tr7N10Ncqcob9+r5bAP/Iaiau35T8RGHEYsgTU603mh69HRNkbFWqA0HtMnGi/DuX5kecl9OhWa/eaEJEccRTF2NxQQMvopSEUGlpxjV974Ste9StRvsWkgO7ZS8MAvRd2wPk0lhSEEA=~-1~-1~1731409940",
+      "domain": ".meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "bm_sz",
+      "value": "5CC54F64B654538ACF1592A8D528B0BC~YAAQlCMRAs2nEwaTAQAAq2bcHxn4APMgBXD3b1e+0pAzvc16Qcm9gg44sFD1agKd5yh1K5cDLCvqrzg41Ut0Cxhhs0iVbw3pC70tN4YRVVZ0LHPjybNhWIHNiQpNGaDn3KKRlvCGy8RXQZWhp0Z1BX1SIT/hJ0dxAmQaLM0lxkd2JTlK61BvXSQn3MZZVMQsg7IxD8gIVsRvcumYrpsn81bjLaU9UMrV2+G4rsx1NX8XLO+aXXO8Q/Fto1MwQs7boo4D4AE2qEIcAAzynFXfXsjbRrZ4J0pPEHctC0JvHmzDkiGH1+L6TZNk6AX6uqM46Y2xd66Z43bwZP33QdWP6L3iJ5GrYYnS5yJZmTBvdWRh93RWbVAalZdMuZs9fXxhDHTDbFUYFwc22usDmdgg38/M5omJ/N20PgjnVnRcpg==~3619141~3753013",
+      "domain": ".meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "location-details",
+      "value": "%7B%22city%22%3A%22Bengaluru%22%2C%22lat%22%3A%2213.2257%22%2C%22long%22%3A%2277.575%22%2C%22pincode%22%3A%22560001%22%7D",
+      "domain": "www.meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "mp_60483c180bee99d71ee5c084d7bb9d20_mixpanel",
+      "value": "%7B%22distinct_id%22%3A%20%221931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c%22%2C%22%24device_id%22%3A%20%221931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c%22%2C%22%24initial_referrer%22%3A%20%22%24direct%22%2C%22%24initial_referring_domain%22%3A%20%22%24direct%22%2C%22%24user_id%22%3A%20130816858%2C%22Is%20Anonymous%22%3A%20%22False%22%2C%22Session%20ID%22%3A%20%22de677b35-b02b-46bf-aff4-ab4bc61c%22%2C%22V2%20Cat-Nav%20Exp%20Enabled%22%3A%20false%2C%22last%20event%20time%22%3A%201731406359900%2C%22__alias%22%3A%20130816858%7D",
+      "domain": ".meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "bm_sv",
+      "value": "FDD7F28D2B8012C704EEF96EEA185C09~YAAQlCMRAgeoEwaTAQAAJnLcHxlGDJDSpaxbP1WxeXzoaxgoe9Q0sXaQukzd5T/ahz/kY0NXi5ClRURF0Is8mPF0c6LrIf6yh/4bnfOmlpTb1+Bz/RjpQWl1An7Hq+xVKh+kOZish4HL09qbs2ezOhiXIIsERrVzp0SJMCVYV4sHeaKMIO20agZ5iIQYJDWNYep0PV/nforGgA3URSVMsRgzPEA/4Nx+F7sYtZC8k8z/TtjGkQvjvLMr0KIPcpKX~1",
+      "domain": ".meesho.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://www.meesho.com",
+      "localStorage": [
+        {
+          "name": "ak_a",
+          "value": "B2AC3E051B6847A4FC24775D43BDB02E"
+        },
+        {
+          "name": "ak_ax",
+          "value": "-1"
+        },
+        {
+          "name": "__mpq_60483c180bee99d71ee5c084d7bb9d20_pp",
+          "value": "[{\"id\":\"q0b0aet36wdae54h\",\"flushAfter\":1731406368686,\"payload\":{\"$set\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$browser_version\":124,\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"Unique UserID\":130816858,\"User ID\":130816858,\"Distinct ID - MIP\":130816858,\"Category Navigation AB\":\"default\",\"Phone\":\"6359015644\"},\"$token\":\"60483c180bee99d71ee5c084d7bb9d20\",\"$distinct_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$device_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$user_id\":130816858}},{\"id\":\"srywsgxte5a0h3a8\",\"flushAfter\":1731406368687,\"payload\":{\"$set\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$browser_version\":124,\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"Unique UserID\":130816858,\"User ID\":130816858,\"Distinct ID - MIP\":130816858,\"Category Navigation AB\":\"default\",\"Phone\":\"6359015644\"},\"$token\":\"60483c180bee99d71ee5c084d7bb9d20\",\"$distinct_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$device_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$user_id\":130816858}}]"
+        },
+        {
+          "name": "__mpq_60483c180bee99d71ee5c084d7bb9d20_ev",
+          "value": "[{\"id\":\"nt85dmsv7ha8t2vp\",\"flushAfter\":1731406367124,\"payload\":{\"event\":\"POW Auth OTP Entered\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":124,\"$screen_height\":768,\"$screen_width\":1366,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"dq65fzxfg7v81exf\",\"time\":1731406357.124,\"distinct_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$device_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"Is Anonymous\":\"True\",\"Session ID\":\"de677b35-b02b-46bf-aff4-ab4bc61c\",\"V2 Cat-Nav Exp Enabled\":false,\"last event time\":1731406357121,\"auth_type\":\"normal_auth\",\"Distinct Id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"2pv7kpghjfj9s31k\",\"flushAfter\":1731406367243,\"payload\":{\"event\":\"POW Auth Verify OTP Clicked\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":124,\"$screen_height\":768,\"$screen_width\":1366,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"69cpz3xwndbimjno\",\"time\":1731406357.243,\"distinct_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$device_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"Is Anonymous\":\"True\",\"Session ID\":\"de677b35-b02b-46bf-aff4-ab4bc61c\",\"V2 Cat-Nav Exp Enabled\":false,\"last event time\":1731406357241,\"auth_type\":\"normal_auth\",\"Distinct Id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"47mrk7jpdz4ddth7\",\"flushAfter\":1731406367249,\"payload\":{\"event\":\"POW Auth OTP Submitted\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":124,\"$screen_height\":768,\"$screen_width\":1366,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"8v67sttypnto1gua\",\"time\":1731406357.249,\"distinct_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$device_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"Is Anonymous\":\"True\",\"Session ID\":\"de677b35-b02b-46bf-aff4-ab4bc61c\",\"V2 Cat-Nav Exp Enabled\":false,\"last event time\":1731406357245,\"auth_type\":\"normal_auth\",\"Distinct Id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"owpusms7o4g97y4f\",\"flushAfter\":1731406368679,\"payload\":{\"event\":\"$create_alias\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":124,\"$screen_height\":768,\"$screen_width\":1366,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"e0q10c9gzo6s13vo\",\"time\":1731406358.679,\"distinct_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$device_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"Is Anonymous\":\"False\",\"Session ID\":\"de677b35-b02b-46bf-aff4-ab4bc61c\",\"V2 Cat-Nav Exp Enabled\":false,\"last event time\":1731406357245,\"alias\":130816858,\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"fsghzdz5a7zva6p1\",\"flushAfter\":1731406368684,\"payload\":{\"event\":\"$identify\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":124,\"$screen_height\":768,\"$screen_width\":1366,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"u0e87811w582qlrs\",\"time\":1731406358.684,\"distinct_id\":130816858,\"$device_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":130816858,\"Is Anonymous\":\"False\",\"Session ID\":\"de677b35-b02b-46bf-aff4-ab4bc61c\",\"V2 Cat-Nav Exp Enabled\":false,\"last event time\":1731406357245,\"$anon_distinct_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"8eny3ayx1qz91cl2\",\"flushAfter\":1731406368710,\"payload\":{\"event\":\"POW Auth OTP Verification Successful\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":124,\"$screen_height\":768,\"$screen_width\":1366,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"jh3j2meutm7et19q\",\"time\":1731406358.71,\"distinct_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$device_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":130816858,\"Is Anonymous\":\"False\",\"Session ID\":\"de677b35-b02b-46bf-aff4-ab4bc61c\",\"V2 Cat-Nav Exp Enabled\":false,\"last event time\":1731406358707,\"auth_type\":\"normal_auth\",\"Distinct Id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"zzvufxz7iiu5dxs4\",\"flushAfter\":1731406368718,\"payload\":{\"event\":\"POW Auth Successful\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":124,\"$screen_height\":768,\"$screen_width\":1366,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"t4irgm7t8qphxdep\",\"time\":1731406358.717,\"distinct_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$device_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":130816858,\"Is Anonymous\":\"False\",\"Session ID\":\"de677b35-b02b-46bf-aff4-ab4bc61c\",\"V2 Cat-Nav Exp Enabled\":false,\"last event time\":1731406358714,\"Action Event Name\":\"\",\"Meesho User ID \":130816858,\"auth_type\":\"normal_auth\",\"auth_method\":\"otp\",\"Distinct Id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"747nsvh3931u787o\",\"flushAfter\":1731406368723,\"payload\":{\"event\":\"POW App Signup\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":124,\"$screen_height\":768,\"$screen_width\":1366,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"isto5p9yrwbbemh8\",\"time\":1731406358.723,\"distinct_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$device_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":130816858,\"Is Anonymous\":\"False\",\"Session ID\":\"de677b35-b02b-46bf-aff4-ab4bc61c\",\"V2 Cat-Nav Exp Enabled\":false,\"last event time\":1731406358721,\"auth_type\":\"normal_auth\",\"Distinct Id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"rcz2k4v7ayodpcqb\",\"flushAfter\":1731406368680,\"payload\":{\"event\":\"$identify\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/auth/verify\",\"$browser_version\":124,\"$screen_height\":768,\"$screen_width\":1366,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"9htxfhrwgw2v38hl\",\"time\":1731406358.68,\"distinct_id\":130816858,\"$device_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":130816858,\"Is Anonymous\":\"False\",\"Session ID\":\"de677b35-b02b-46bf-aff4-ab4bc61c\",\"V2 Cat-Nav Exp Enabled\":false,\"last event time\":1731406357245,\"$anon_distinct_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"piqpumphyxp50d0k\",\"flushAfter\":1731406369899,\"payload\":{\"event\":\"POW_HP_Viewed\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/\",\"$browser_version\":124,\"$screen_height\":768,\"$screen_width\":1366,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"hibpq7z5ppsvgm4z\",\"time\":1731406359.898,\"distinct_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$device_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":130816858,\"Is Anonymous\":\"False\",\"Session ID\":\"de677b35-b02b-46bf-aff4-ab4bc61c\",\"V2 Cat-Nav Exp Enabled\":false,\"last event time\":1731406359895,\"desktop\":true,\"mobile\":false,\"Source\":\"Other sources\",\"referrer\":\"/auth/verify\",\"Landing Page\":false,\"Page Type\":\"HP\",\"Distinct Id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}},{\"id\":\"xltdh298u1y8atnb\",\"flushAfter\":1731406369904,\"payload\":{\"event\":\"POW Pageview\",\"properties\":{\"$os\":\"Windows\",\"$browser\":\"Chrome\",\"$current_url\":\"https://www.meesho.com/\",\"$browser_version\":124,\"$screen_height\":768,\"$screen_width\":1366,\"mp_lib\":\"web\",\"$lib_version\":\"2.45.0\",\"$insert_id\":\"htzn9temtkd8jvh8\",\"time\":1731406359.904,\"distinct_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$device_id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"$initial_referrer\":\"$direct\",\"$initial_referring_domain\":\"$direct\",\"$user_id\":130816858,\"Is Anonymous\":\"False\",\"Session ID\":\"de677b35-b02b-46bf-aff4-ab4bc61c\",\"V2 Cat-Nav Exp Enabled\":false,\"last event time\":1731406359900,\"Landing Page\":false,\"Page Type\":\"HP\",\"from\":\"HP\",\"status\":false,\"Distinct Id\":\"1931fdc2792238-0593dfd9122219-26001d51-100200-1931fdc279391c\",\"token\":\"60483c180bee99d71ee5c084d7bb9d20\"}}}]"
+        }
+      ]
+    }
+  ]
+}

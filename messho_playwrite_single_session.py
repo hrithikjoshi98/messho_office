@@ -17,10 +17,10 @@ from evpn import ExpressVpnApi
 
 # DB Connection
 connect = pymysql.connect(
-    host='172.27.131.60',
+    host='localhost',
     user='root',
     password='actowiz',
-    database='meesho_master'
+    database='meesho_page_save'
 )
 cursor = connect.cursor()
 
@@ -28,7 +28,7 @@ local_connect = pymysql.connect(
     host='localhost',
     user='root',
     password='actowiz',
-    database='casio'
+    database='meesho_page_save'
 )
 local_cursor = local_connect.cursor()
 
@@ -55,7 +55,7 @@ def login(page, context):
     login_successful = False
 
     def handle_login_response(response):
-        if 'verify.json' in response.url:
+        if '9879361219_20241121.json' in response.url:
             print(f"Login verification response received from: {response.url}")
             global login_successful
             login_successful = True
@@ -80,94 +80,80 @@ def login(page, context):
 
     # Save session if login successful
     if login_successful:
-        context.storage_state(path="session_storage.json")
+        context.storage_state(path="9879361219_20241121.json")
 
     return login_successful
 
 
 
 def change_vpn(api, locations):
-     # get available locations
     loc = random.choice(locations)
     api.connect(loc["id"])
     time.sleep(5)
+    print(f'{loc} VPN connected')
 
+
+def wait_for_h1_update(page, selector, old_text, timeout=10):
+    start_time = time.time()
+    while time.time() - start_time < timeout:
+        current_text = page.text_content(selector)
+        if current_text and current_text != old_text:
+            return current_text
+        time.sleep(0.5)
+    # raise TimeoutError("H1 did not update within the timeout period")
+    return "Enter Pincode for Estimated Delivery Date"
 
 # Scraper function using Playwright
 def scraper(pincode, start_id, end_id):
-    cookies_dic = {}
-    scraped_data_count = 1
-    for file in os.listdir(os.getcwd()):
-        if file.endswith('.json'):
-            # print(file)
-            with open(file, 'r') as f:
-                data = f.read()
-                file_name = file.split('.')[0]
-                cookie = json.loads(data)
-                cookies_dic[file_name] = cookie
 
-    # with open('session_storage.json', 'r') as f:
-    #     session_data = json.load(f)
-    # session_datas = {}
-    # lis = []
-    # for p, i in enumerate(session_data['cookies']):
-    #     print(i['name'])
-    #     i['expires'] = -1
-    #     lis.append(i)
-    #
-    # session_datas['cookies'] = lis
+    with open('9879361219_20241121.json', 'r') as f:
+        session_data = json.load(f)
+    session_datas = {}
+    lis = []
+    for p, i in enumerate(session_data['cookies']):
+        print(i['name'])
+        i['expires'] = -1
+        lis.append(i)
+
+    session_datas['cookies'] = lis
 
 
-    # Load session cookies
-    # context.add_cookies(session_datas['cookies'])
+    fingerprints = FingerprintGenerator()
+    fingerprint = fingerprints.generate(user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36')
 
-    # Query to fetch data
-    # query = f"SELECT meesho_pid FROM product_links_20240926 WHERE status='Done' AND status_{pincode} != 'Done' AND id BETWEEN {start_id} AND {end_id}"
-    query = f"SELECT meesho_pid FROM product_links_20240927 WHERE status='Done' AND status_{pincode} != 'Done' AND id BETWEEN {start_id} AND {end_id}"
-    cursor.execute(query)
-    rows = cursor.fetchall()
-    co_p = 1
-    for pos, pid in enumerate(rows):
-        fingerprints = FingerprintGenerator()
-        fingerprint = fingerprints.generate()
-        with sync_playwright() as playwright:
+    with sync_playwright() as playwright:
 
-            browser = playwright.chromium.launch(headless=False, )
-            context = NewContext(browser, fingerprint=fingerprint)
+        browser = playwright.chromium.launch(headless=False, )
+        context = NewContext(browser, fingerprint=fingerprint)
+        # context = NewContext(browser)
+        # Tarnished.apply_stealth(context)
+        page = context.new_page()
+        # Load session cookies
+        context.add_cookies(session_datas['cookies'])
 
-            # Tarnished.apply_stealth(context)
+        query = f"SELECT Product_Url_MEESHO FROM `template_20241017_distinct_status` WHERE In_Stock_Status_MEESHO  = 'true'"
+        cursor.execute(query)
+        rows = cursor.fetchall()
 
-            page = context.new_page()
-            # context.clear_cookies()
-            if co_p == 4:
-                co_p = 1
-            key, value = list(cookies_dic.items())[co_p]
-            co_p += 1
+        for pos, link_ in enumerate(rows):
 
-            context.add_cookies(value['cookies'])
+            link = link_[0]
 
-            link = f'https://www.meesho.com/s/p/{pid[0]}'
-
-            local_cursor.execute(f"SELECT * FROM pages WHERE url = '{link}' and status = 'done'")
+            local_cursor.execute("SELECT * FROM pages WHERE url = %s AND status = %s", (link, 'done'))
             local_connect.commit()
-            print(f'\n{pos} --- {key} --- {link}')
+            print(f'\n{pos} --- {link}')
             if local_cursor.fetchone():
-                print('URL already scraped')
+                print('url already scraped...', '\n')
                 continue
-            # page.set_viewport_size({"width": 1920, "height": 1080})
+
             page.goto(link)
-            page.evaluate("window.moveTo(0, 0); window.resizeTo(screen.width, screen.height);")
 
             try:
                 if page.locator('//h1[contains(text(), "Access Denied")]').count() > 0:
                     review = page.locator('//h1[contains(text(), "Access Denied")]').first
                     if 'access denied' in review.text_content().lower():
                         print('access denied')
-                        change_vpn(api, locations)
-                        page_id = hashlib.sha256((page.url + f'_{pincode}').encode()).hexdigest()
-                        insert_query = f"""INSERT INTO pages (url, pincode, page_hash, status) VALUES ('{page.url}', '{pincode}', '{page_id}', 'pending')"""
-                        local_cursor.execute(insert_query)
-                        local_connect.commit()
+                        # change_vpn(api, locations)
                         continue
             except:
                 pass
@@ -186,16 +172,13 @@ def scraper(pincode, start_id, end_id):
                     page.locator('//input[@id="pin"]').fill(pincode)
                 else:
                     print(f'Input not available for {pincode}')
-                    page_id = hashlib.sha256((page.url + f'_{pincode}').encode()).hexdigest()
-                    insert_query = f"""INSERT INTO pages (url, pincode, page_hash, status) VALUES ('{page.url}', '{pincode}', '{page_id}', 'pending')"""
-                    local_cursor.execute(insert_query)
-                    local_connect.commit()
                     continue
             except:
                 pass
 
             try:
                 if page.locator('//span[text()="CHECK"]').count() > 0:  # If element exists
+
                     page.locator('//span[text()="CHECK"]').click()
                 else:
                     pass
@@ -211,65 +194,44 @@ def scraper(pincode, start_id, end_id):
             except:
                 pass
 
-            time.sleep(2)
             try:
                 if page.locator('//*[contains(@class,"sc-eDvSVe dCivsU") and not(contains(text(), "Dispatch"))]').count() > 0:
+                    # with page.expect_navigation():
                     text_data = page.locator('//*[contains(@class,"sc-eDvSVe dCivsU") and not(contains(text(), "Dispatch"))]').first
-                    print(text_data.text_content())
-                    if 'Enter Pincode for Estimated Delivery Date' in text_data.text_content():
-                        change_vpn(api, locations)
-                        page_id = hashlib.sha256((page.url + f'_{pincode}').encode()).hexdigest()
-                        insert_query = f"""INSERT INTO pages (url, pincode, page_hash, status) VALUES ('{page.url}', '{pincode}', '{page_id}', 'pending')"""
-                        local_cursor.execute(insert_query)
-                        local_connect.commit()
+
+                    new_text = wait_for_h1_update(page, '//*[contains(@class,"sc-eDvSVe dCivsU") and not(contains(text(), "Dispatch"))]', text_data.text_content(), timeout=10)
+                    print(new_text)
+                    if 'Enter Pincode for Estimated Delivery Date' in new_text:
+                        # change_vpn(api, locations)
                         continue
-            except:
-                pass
+                    page_id = str(link).split('/')[-1] + f'_{pincode}'
 
-            page_id = hashlib.sha256((page.url + f'_{pincode}').encode()).hexdigest()
+                    insert_query = f"""INSERT INTO pages(url, pincode, page_hash, status) VALUES (%s, %s, %s, %s)"""
+                    local_cursor.execute(insert_query, (link, pincode, page_id, 'done'))
+                    local_connect.commit()
+                    # update_query = f"""UPDATE template_20241017_distinct SET status_560001 = 'done' WHERE Product_Url_MEESHO = %s"""
+                    # cursor.execute(update_query, (link,))
+                    # connect.commit()
 
-            local_cursor.execute(f"SELECT * FROM pages WHERE url != '{link}'")
-            local_connect.commit()
-            if local_cursor.fetchone():
+                    with zipfile.ZipFile(fr'C:\project_files\meesho_project\shipping_page\{page_id}' + '.zip', 'w',
+                                         zipfile.ZIP_DEFLATED) as zip_file:
+                        zip_file.writestr(f'HTML_{page_id}.html', page.content())
+            except Exception as e:
+                print("Known Exception", e)
 
-                insert_query = f"""INSERT INTO pages (url, pincode, page_hash, status) VALUES ('{page.url}', '{pincode}', '{page_id}', 'done')"""
-                local_cursor.execute(insert_query)
-                local_connect.commit()
-            else:
-                insert_query = f"""UPDATE INTO pages SET page_hash = '{page_id}' AND status = 'done' WHERE url = '{page.url}' VALUES ('{page.url}', '{pincode}', '{page_id}', 'done')"""
-                local_cursor.execute(insert_query)
-                local_connect.commit()
 
-            with zipfile.ZipFile(fr'C:\project_files\meesho_project\shipping_page\{page_id}' + '.zip', 'w',
-                                 zipfile.ZIP_DEFLATED) as zip_file:
-                zip_file.writestr(f'HTML_{page_id}.html', page.content())
-            # random_wait()
+
 
 # Main function to handle login and scraping
 def main(pincode, start_id, end_id):
-    if os.path.exists('9737090010_20241112.json'):
-        scraper(pincode, start_id, end_id)
-    else:
-        with sync_playwright() as playwright:
-            browser = playwright.chromium.launch(headless=False)
-            fingerprints = FingerprintGenerator()
-            fingerprint = fingerprints.generate()
-            context = NewContext(browser, fingerprint=fingerprint)
-            page = context.new_page()
-
-            logged_in = login(page, context)
-            if logged_in:
-                print("Login successful!")
-                scraper(pincode, start_id, end_id)
-            else:
-                print("Login failed!")
-            browser.close()
+    scraper(pincode, start_id, end_id)
 
 
 if __name__ == "__main__":
     start_time = time.time()
     with ExpressVpnApi() as api:
         locations = api.locations
+        # change_vpn(api, locations)
         main("560001", 1, 15000)
 
 
